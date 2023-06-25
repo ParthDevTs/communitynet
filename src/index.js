@@ -3,11 +3,39 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { makeServer } from "./server";
+import { AuthProvider } from "./context/AuthContext";
+import { ToastContainer } from "react-toastify";
+import { BrowserRouter } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import { PostProvider } from './context/postContext';
+
+// Call make Server
+makeServer();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <AuthProvider>
+        <PostProvider>
+          <App />
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+          <ToastContainer />
+        </PostProvider>
+      </AuthProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

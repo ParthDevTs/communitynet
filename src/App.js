@@ -1,10 +1,18 @@
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Example from "./components/hero";
+import { Login } from "./components/login";
+import { Feed } from "./pages/feed";
+import { RequiresAuth } from "./components/RequiresAuth";
 
 function App() {
   return (
     <div className="App">
-      <Example />
+
+
+      <Routes>
+        <Route path="/" element={<RequiresAuth><Feed /></RequiresAuth>} ></Route>
+        <Route path="/login" element={<Login />} ></Route>
+      </Routes>
     </div>
   );
 }
