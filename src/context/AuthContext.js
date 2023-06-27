@@ -19,20 +19,30 @@ export const AuthProvider = ({ children }) => {
             password: "adarshBalika123",
         };
 
+        console.log(JSON.stringify(creds))
+
         await fetch("/api/auth/login", {
             method: "POST",
             body: JSON.stringify(creds),
         })
             .then(async (res) => await res.json())
             .then(async (data) => {
-                localStorage.setItem("encodedToken", data.encodedToken);
-                localStorage.setItem("loginEmail", creds.email);
-                setIsLoggedIn(true);
-                navigate(location?.state?.from?.pathname);
-                // loginDataLoad();
-                toast.done(id);
-                toast.success(`Welcome user ${creds.username}`);
-                setUserName(creds.username)
+                console.log(data)
+                if (data.encodedToken) {
+                    console.log(data)
+                    localStorage.setItem("encodedToken", data.encodedToken);
+                    localStorage.setItem("loginEmail", creds.email);
+                    setIsLoggedIn(true);
+                    navigate(location?.state?.from?.pathname);
+                    // loginDataLoad();
+                    toast.done(id);
+                    toast.success(`Welcome user ${creds.username}`);
+                    setUserName(creds.username)
+                } else {
+                    toast.done(id);
+                    toast.error("Username and Password dont match")
+                    return false;
+                }
 
             })
             .catch((e) => {
@@ -43,25 +53,31 @@ export const AuthProvider = ({ children }) => {
 
     const loginAuth = async (logincred) => {
         let id = toast.loading("Logging In");
-
+        console.log(logincred)
         await fetch("/api/auth/login", {
             method: "POST",
             body: JSON.stringify(logincred),
-        })
-            .then(async (res) => await res.json())
+        }).then(async (res) => await res.json())
             .then(async (data) => {
-                localStorage.setItem("encodedToken", data.encodedToken);
-                localStorage.setItem("loginEmail", logincred.email);
-                setIsLoggedIn(true);
-                navigate(location?.state?.from?.pathname);
-                // loginDataLoad();
-                toast.done(id);
-                toast.success(`Welcome user ${logincred.username}`);
-                setUserName(logincred.username)
+                if (data.encodedToken) {
+                    localStorage.setItem("encodedToken", data.encodedToken);
+                    localStorage.setItem("loginEmail", logincred.email);
+                    setIsLoggedIn(true);
+                    navigate(location?.state?.from?.pathname);
+                    toast.done(id);
+                    toast.success(`Welcome user ${logincred.username}`);
+                    setUserName(logincred.username)
+                }
+                else {
+                    toast.done(id);
+                    toast.error("Username and Password dont match")
+                    return false;
+
+                }
             })
-            .catch((e) => {
+            .catch((error) => {
                 toast.done(id);
-                toast.error("Some error Occured");
+                toast.error(error[0]);
             });
     }
     const signUp = async (signUpCreds) => {
@@ -71,18 +87,16 @@ export const AuthProvider = ({ children }) => {
         })
             .then(async (res) => await res.json())
             .then(async (data) => {
-                localStorage.setItem("encodedToken", data.encodedToken);
-                localStorage.setItem("loginEmail", signUpCreds.email);
-                setIsLoggedIn(true);
-                navigate(location?.state?.from?.pathname);
-                // loginDataLoad();
+                console.log(data)
 
-                toast.success(`Welcome user ${signUpCreds.username}`);
-                setUserName(signUpCreds.username)
+                toast.success(`Successfully Signed Up ${signUpCreds.username}`);
+                return (true)
+
             })
             .catch((e) => {
 
                 toast.error("Some error Occured");
+                return (false)
             });
     }
 

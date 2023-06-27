@@ -1,0 +1,38 @@
+::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 1px;
+  padding: px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ffb8b8b3;
+  box-shadow: 0 6px 8px -3px black;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #ffb8b8;
+}
+
+.feed__nav__links > .navLinks {
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.479);
+}
+input::-webkit-input-placeholder {
+  /* Edge */
+  color: rgba(128, 128, 128, 0.295);
+}
+
+input:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: rgba(128, 128, 128, 0.308);
+}
+
+input::placeholder {
+  color: rgba(128, 128, 128, 0.459);
+}
