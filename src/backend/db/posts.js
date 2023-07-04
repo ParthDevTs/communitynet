@@ -10,7 +10,21 @@ export const posts = [
   {
     _id: uuid(),
     content:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
+      "When you're on a mission, you have to sacrifice some of the pleasures of life. The harder it is - the more meaningful. The more meaningful - the greater the results.",
+    likes: {
+      likeCount: 0,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    username: "ajaychau_123",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+    image: ""
+  },
+  {
+    _id: uuid(),
+    content:
+      "Is this a Aurora??? :p",
     likes: {
       likeCount: 0,
       likedBy: [],
@@ -19,18 +33,62 @@ export const posts = [
     username: "adarshbalika",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    image: "https://lh3.googleusercontent.com/pw/AJFCJaXZ9zK02arPc9SEzcktBY6N_sXrMeddlg0jSc7-yNJOvbto9_ewIFMFENn_5kzURYfc6aENqrff_nERxnaEn5iIgdg10ZTzNy1YKE5EIaT2-BzQGxg0qwNTkzobmT48JuVQR3yVkXxQCHo0Je021Wr4=w1292-h969-s-no?authuser=0"
   },
   {
     _id: uuid(),
     content:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
+      "Perfectionism is a disease that paralyzes action.Rather than obsessing over every detail, take risks, make mistakes, and embrace imperfection!",
     likes: {
       likeCount: 0,
       likedBy: [],
       dislikedBy: [],
     },
-    username: "shubhamsoni",
+    username: "Neo__g_f1",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    image: ""
+  },
+  {
+    _id: uuid(),
+    content:
+      "Would anyone know of a coffee shop close to the DN nagar metro station? Need it for a work meeting.",
+    likes: {
+      likeCount: 0,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    username: "NeoG__roxx",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+    image: ""
+  },
+  {
+    _id: uuid(),
+    content:
+      "Found this Amazing Mustang in Chennai",
+    likes: {
+      likeCount: 0,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    username: "tanvi_123",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+    image: "https://lh3.googleusercontent.com/pw/AJFCJaW_HwgHwKoIlqPHADi7EXjWmRLYAl0HrfmgbBdV6pRvlk2IXnxzreRz120BS3JBPcBt7qwbk8Q1SJjEUZci_CG4dX6VzVSOHTzsrBv7kITQafz4noisxevzozQHhsj99Gz47CA5_Bg78a2qBIT3QkTl=w1292-h969-s-no?authuser=0"
+  },
+  {
+    _id: uuid(),
+    content:
+      "My Monsoon Trip to Barog!",
+    likes: {
+      likeCount: 0,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    username: "parthk101",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+    image: "https://lh3.googleusercontent.com/pw/AJFCJaVHw3Qq63UvT-AQmM2SO-k-NrnUoyQsHSc0dfCPXkM1SU_5URRVvtW75QJ5NHAlpN88CXi1DvGf9QtYl_9yLhxPzP-BRqfIFs_czHuntyBEuLz5gVlMKiVCwDsTA854eODmf4YWK_BrIYgsLsAcG9q0=w1292-h969-s-no?authuser=0"
   },
 ];

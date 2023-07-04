@@ -29,7 +29,6 @@ root.render(
             draggable
             theme="light"
           />
-          <ToastContainer />
         </PostProvider>
       </AuthProvider>
     </BrowserRouter>

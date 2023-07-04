@@ -1,6 +1,7 @@
 import { v4 as uuid } from "uuid";
 import { Response } from "miragejs";
 import { formatDate } from "../utils/authUtils";
+import user__placeholer from "../../assets/user__placeholder.jpg"
 const sign = require("jwt-encode");
 
 /**
@@ -40,6 +41,7 @@ export const signupHandler = function (schema, request) {
       followers: [],
       following: [],
       bookmarks: [],
+      imgUrl: user__placeholer,
     };
     const createdUser = schema.users.create(newUser);
     const encodedToken = sign(
