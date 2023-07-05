@@ -30,7 +30,6 @@ export const Feed = () => {
     const sortlist = (first, second) => {
         switch (sortingMethod) {
             case "Trending":
-                console.log(first.likes.likeCount, second.likes.likeCount)
                 return first.likes.likeCount > second.likes.likeCount ? -1 : 1
             case "Latest":
                 const a = dayjs(first.createdAt);

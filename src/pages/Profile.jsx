@@ -57,7 +57,7 @@ function Profile() {
                                 <button className="edit__button absolute rounded hover:bg-[#4e49bd] top-[5%] text-white w-[5rem] h-[2rem] bg-[#6C63FF] shadow-[0px_10px_20px_-10px_#6C63FF] left-[3%] ">EDIT</button>
                             }
                             <div className="profile__header  flex flex-col w-full items-center justify-star  gap-4">
-                                <img className="w-[9.375rem] h-[9.375rem] rounded-full" src={imgUrl} alt={profileData.username} />
+                                <img className="w-[9.375rem] h-[9.375rem] object-center  object-cover rounded-full" src={imgUrl} alt={profileData.username} />
                                 <div className="header__info flex-col flex gap-1 text-center w-full">
                                     <h2 className="name drop-shadow-lg font-bold text-2xl capitalize text-center">{`${firstName} ${lastName}`}</h2>
                                     <p className="username text-slate-400 text-center lowercase">@{profileData.username}</p>

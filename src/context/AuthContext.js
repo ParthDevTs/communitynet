@@ -134,10 +134,9 @@ export const AuthProvider = ({ children }) => {
 
     const getProfileDataFromParams = async (userID) => {
         if (!userID) {
-            toast.error("Some error occured, try again later")
-            return false;
+            userID = userData._id
         }
-        setShowLoading(true)
+
         const header = {
             authorization: localStorage.getItem("encodedToken")
         }
@@ -149,10 +148,10 @@ export const AuthProvider = ({ children }) => {
             .then(data => {
                 if (data.error) {
                     toast.error("Some error occured")
-                    setShowLoading(false)
+
                 } else {
                     setProfileData(data.user)
-                    setShowLoading(false)
+
                 }
             })
             .catch(error => console.error(error))

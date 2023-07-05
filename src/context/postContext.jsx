@@ -58,6 +58,9 @@ export const PostProvider = ({ children }) => {
     }
 
     const likeaPost = async (postId) => {
+        if (!postId) {
+            toast("invalid request")
+        }
         const header = {
             authorization: localStorage.getItem("encodedToken"),
         };
@@ -93,7 +96,7 @@ export const PostProvider = ({ children }) => {
 
 
     const followUser = async (userId) => {
-        setShowPostLoading(true)
+
         const header = {
             authorization: localStorage.getItem("encodedToken"),
         };
@@ -107,14 +110,14 @@ export const PostProvider = ({ children }) => {
                 toast.success(`Following ${data.followUser.username}`, {
                     icon: (({ theme, type }) => <img className="rounded-full" src={data.followUser.imgUrl} alt={data.followUser.username}></img>)
                 })
-                setShowPostLoading(false)
+
                 getProfileDataFromParams(currentUserProfileId)
             })
             .catch(error => console.error(error))
     }
 
     const unFollow = async (userId) => {
-        setShowPostLoading(true)
+
         const header = {
             authorization: localStorage.getItem("encodedToken"),
         };
@@ -128,7 +131,7 @@ export const PostProvider = ({ children }) => {
                 toast.info(`UnFollowed ${data.followUser.username}`, {
                     icon: (({ theme, type }) => <img className="rounded-full" src={data.followUser.imgUrl} alt={data.followUser.username}></img>)
                 })
-                setShowPostLoading(false)
+
                 getProfileDataFromParams(currentUserProfileId)
 
             })
