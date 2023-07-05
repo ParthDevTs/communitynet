@@ -11,7 +11,7 @@ export const PostProvider = ({ children }) => {
     const [allUserPosts, setAllUserPOsts] = useState();
     const [selectedPostData, setSelectedPostData] = useState({});
     const [showPostLoading, setShowPostLoading] = useState(false)
-    const { userName, setUserData, userData } = useAuthContext();
+    const { userName, setUserData, userData, getProfileDataFromParams, currentUserProfileId } = useAuthContext();
     const [allUsers, setAllUsers] = useState([])
     const [bookmarkedPosts, setBookmarkedPosts] = useState([])
 
@@ -32,7 +32,7 @@ export const PostProvider = ({ children }) => {
 
 
     const getSelectedPostData = async (postId) => {
-
+        setShowPostLoading(true)
         await fetch(`/api/posts/${postId}`)
             .then(res => res.json())
             .then(data => {
@@ -40,16 +40,18 @@ export const PostProvider = ({ children }) => {
                 if (data.post) {
 
                     setSelectedPostData(data.post)
+                    setShowPostLoading(false)
                     return true
+
 
                 } else {
                     toast.error("The Selected Post may not exist")
-
+                    setShowPostLoading(false)
                     return false
                 }
             }).catch(error => {
                 toast.error(error);
-
+                setShowPostLoading(false)
                 return false
 
             })
@@ -91,6 +93,7 @@ export const PostProvider = ({ children }) => {
 
 
     const followUser = async (userId) => {
+        setShowPostLoading(true)
         const header = {
             authorization: localStorage.getItem("encodedToken"),
         };
@@ -104,6 +107,29 @@ export const PostProvider = ({ children }) => {
                 toast.success(`Following ${data.followUser.username}`, {
                     icon: (({ theme, type }) => <img className="rounded-full" src={data.followUser.imgUrl} alt={data.followUser.username}></img>)
                 })
+                setShowPostLoading(false)
+                getProfileDataFromParams(currentUserProfileId)
+            })
+            .catch(error => console.error(error))
+    }
+
+    const unFollow = async (userId) => {
+        setShowPostLoading(true)
+        const header = {
+            authorization: localStorage.getItem("encodedToken"),
+        };
+        await fetch(`/api/users/unfollow/${userId}`, {
+            method: "POST",
+            headers: header,
+        })
+            .then(res => res.json())
+            .then(data => {
+                setUserGlobal(data.user);
+                toast.info(`UnFollowed ${data.followUser.username}`, {
+                    icon: (({ theme, type }) => <img className="rounded-full" src={data.followUser.imgUrl} alt={data.followUser.username}></img>)
+                })
+                setShowPostLoading(false)
+                getProfileDataFromParams(currentUserProfileId)
 
             })
             .catch(error => console.error(error))
@@ -193,7 +219,7 @@ export const PostProvider = ({ children }) => {
 
 
 
-    return <PostContext.Provider value={{ removeBookMark, bookmarkpost, bookmarkedPosts, followList, followUser, allUsers, disLikedPost, findUserExistsinLiked, likeaPost, showPostLoading, setShowPostLoading, allPosts, allUserPosts, selectedPostData, getSelectedPostData }}>
+    return <PostContext.Provider value={{ unFollow, removeBookMark, bookmarkpost, bookmarkedPosts, followList, followUser, allUsers, disLikedPost, findUserExistsinLiked, likeaPost, showPostLoading, setShowPostLoading, allPosts, allUserPosts, selectedPostData, getSelectedPostData }}>
         {children}
     </PostContext.Provider>
 }

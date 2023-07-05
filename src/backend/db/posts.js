@@ -52,6 +52,20 @@ export const posts = [
   {
     _id: uuid(),
     content:
+      "The Rain is Crazyyyy...",
+    likes: {
+      likeCount: 0,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    username: "adarshbalika",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+    image: ""
+  },
+  {
+    _id: uuid(),
+    content:
       "Would anyone know of a coffee shop close to the DN nagar metro station? Need it for a work meeting.",
     likes: {
       likeCount: 0,

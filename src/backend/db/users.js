@@ -17,6 +17,10 @@ export const users = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
     imgUrl: user__placeholer,
+    following: [],
+    bio: "",
+    url: "",
+    profile__bg: "wave"
   },
   {
     _id: uuid(),
@@ -27,7 +31,10 @@ export const users = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
     imgUrl: parth__img,
-    following: []
+    following: [],
+    bio: "Bio? Nahi Li Maine",
+    url: "https://djikstracommerce.netlify.app/",
+    profile__bg: "blob"
   },
   {
     _id: uuid(),
@@ -38,7 +45,10 @@ export const users = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
     imgUrl: user__placeholer,
-    following: []
+    following: [],
+    bio: "",
+    url: "",
+    profile__bg: "wave"
   },
   {
     _id: uuid(),
@@ -49,7 +59,10 @@ export const users = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
     imgUrl: user__placeholer,
-    following: []
+    following: [],
+    bio: "",
+    url: "",
+    profile__bg: "wave"
   },
   {
     _id: uuid(),
@@ -60,7 +73,10 @@ export const users = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
     imgUrl: user__placeholer,
-    following: []
+    following: [],
+    bio: "",
+    url: "",
+    profile__bg: "blob"
   },
   {
     _id: uuid(),
@@ -71,6 +87,9 @@ export const users = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
     imgUrl: user__placeholer,
-    following: []
+    following: [],
+    bio: "",
+    url: "",
+    profile__bg: "wave"
   },
 ];

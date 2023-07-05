@@ -28,7 +28,7 @@ function App() {
         <Route path="/login" element={<Login />} ></Route>
         <Route path="/explore" element={<RequiresAuth><Explore /></RequiresAuth>} ></Route>
         <Route path="/bookmarks" element={<RequiresAuth><Bookmarks /></RequiresAuth>} ></Route>
-        <Route path="/profile" element={<RequiresAuth><Profile /></RequiresAuth>} ></Route>
+        <Route path="/profile/:userID" element={<RequiresAuth><Profile /></RequiresAuth>} ></Route>
         <Route path="/post/:postId" element={<RequiresAuth><PostView /></RequiresAuth>} ></Route>
       </Routes>
     </div>

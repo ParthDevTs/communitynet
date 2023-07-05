@@ -14,12 +14,9 @@ export const AuthProvider = ({ children }) => {
     const [userName, setUserName] = useState("");
     const [userData, setUserData] = useState({});
     const [showLoading, setShowLoading] = useState(false)
+    const [profileData, setProfileData] = useState({});
     const authToken = localStorage.getItem("encodedToken");
-
-
-    // const { resetCounters, loginDataLoad } = useCart();
-
-
+    const [currentUserProfileId, setCurrentUserProfileId] = useState(userData._id)
 
     const guestLogin = async () => {
         setShowLoading(true)
@@ -133,6 +130,34 @@ export const AuthProvider = ({ children }) => {
             });
     }
 
+
+
+    const getProfileDataFromParams = async (userID) => {
+        if (!userID) {
+            toast.error("Some error occured, try again later")
+            return false;
+        }
+        setShowLoading(true)
+        const header = {
+            authorization: localStorage.getItem("encodedToken")
+        }
+        await fetch(`/api/users/${userID}`, {
+            headers: header,
+            method: "GET"
+        })
+            .then((res) => res.json())
+            .then(data => {
+                if (data.error) {
+                    toast.error("Some error occured")
+                    setShowLoading(false)
+                } else {
+                    setProfileData(data.user)
+                    setShowLoading(false)
+                }
+            })
+            .catch(error => console.error(error))
+    }
+
     const logOut = () => {
         // resetCounters();
         setShowLoading(true)
@@ -143,7 +168,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ setUserData, showLoading, userData, userName, isLoggedIn, setIsLoggedIn, guestLogin, logOut, loginAuth, signUp, authToken }}>
+        <AuthContext.Provider value={{ setShowLoading, currentUserProfileId, setCurrentUserProfileId, profileData, setProfileData, getProfileDataFromParams, setUserData, showLoading, userData, userName, isLoggedIn, setIsLoggedIn, guestLogin, logOut, loginAuth, signUp, authToken }}>
             {children}
         </AuthContext.Provider>
     );

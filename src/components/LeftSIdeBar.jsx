@@ -10,12 +10,12 @@ function LeftSIdeBar() {
                 <Link className="navLinks text-left text-[1rem] font-semibold hover:text-[#9690ff] drop-shadow-xs" to="/">Home</Link>
                 <Link className="navLinks text-left text-[1rem] font-semibold hover:text-[#9690ff] drop-shadow-xs" to="/explore">Explore</Link>
                 <Link className="navLinks text-left text-[1rem] font-semibold hover:text-[#9690ff] drop-shadow-xs" to="/bookmarks">Bookmarks</Link>
-                <Link className="navLinks text-left text-[1rem] font-semibold hover:text-[#9690ff] drop-shadow-xs" to="/profile">Profile</Link>
+                <Link className="navLinks text-left text-[1rem] font-semibold hover:text-[#9690ff] drop-shadow-xs" to={`/profile/${userData._id}`}>Profile</Link>
             </div>
             <div className="spacer flex flex-grow"></div>
             <div className="userContainer flex gap-4">
-                <img onClick={() => navigate("/profile")} className="h-20 w-[3.75rem]  rounded-lg cursor-pointer" src={userData?.imgUrl} alt={userData.firstName} />
-                <div onClick={() => navigate("/profile")} className="userDetails flex flex-col justify-center cursor-pointer ">
+                <img onClick={() => navigate(`/profile/${userData._id}`)} className="h-20 w-[3.75rem]  rounded-lg cursor-pointer" src={userData?.imgUrl} alt={userData.firstName} />
+                <div onClick={() => navigate(`/profile/${userData._id}`)} className="userDetails flex flex-col justify-center cursor-pointer ">
                     <p>{`${userData?.firstName} ${userData?.lastName}`}</p>
                     <p className="text-xs font-bold text-slate-400">{`@${userData.username}`}</p>
                 </div>

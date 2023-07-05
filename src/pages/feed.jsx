@@ -15,7 +15,6 @@ export const Feed = () => {
     const { allPosts, showPostLoading } = usePostContext();
     const { userData } = useAuthContext();
     const [sortingMethod, setSortingMethod] = useState("Trending")
-    console.log(sortingMethod)
     const filterByFollowing = (post) => {
         if (post.username === userData.username) {
             return true

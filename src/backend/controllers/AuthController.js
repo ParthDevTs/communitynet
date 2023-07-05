@@ -42,6 +42,8 @@ export const signupHandler = function (schema, request) {
       following: [],
       bookmarks: [],
       imgUrl: user__placeholer,
+      profile__bg: "blob",
+      url: ""
     };
     const createdUser = schema.users.create(newUser);
     const encodedToken = sign(

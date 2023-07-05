@@ -2,28 +2,41 @@ import { useNavigate } from "react-router-dom";
 import user__img from "../assets/user__placeholder.jpg";
 import { usePostContext } from "../context/postContext";
 import dayjs from 'dayjs';
+
 export const Post = ({ post, bookmarkMode = false }) => {
 
     const navigate = useNavigate();
-    const { likeaPost, findUserExistsinLiked, disLikedPost, bookmarkpost, removeBookMark } = usePostContext()
+    const { likeaPost, findUserExistsinLiked, disLikedPost, bookmarkpost, removeBookMark, bookmarkedPosts, allUsers } = usePostContext()
 
-    const { _id, content, likes: { likedBy = [], ...rest }, username, createdAt, ...restitems } = post;
+
+    const { _id, content, likes: { likedBy = [] }, username, createdAt } = post;
     const now = dayjs();
     const createdDateFormatted = dayjs(createdAt, "DD-MM-YYYY")
-    // const updatedDateFormatted = dayjs(updatedAt, "DD-MM-YYYY")
-    console.log(rest, restitems)
 
     const createddifferenceDay = now.diff(createdDateFormatted, "day")
     const createddifferenceMinute = now.diff(createdDateFormatted, "minute")
 
     const userExistsLiked = findUserExistsinLiked(likedBy)
 
+    const findInBookmarks = (postId) => {
+        const foundPost = bookmarkedPosts.find((post) => post._id === postId)
+        if (foundPost) {
+            return true
+        }
+        return false
+    }
+
+    const findUserName = (username) => {
+        const user = allUsers.find((user) => user.username === username);
+        return user._id
+    }
+
 
 
     return <div className="post shadow-[0px_4px_8px_-4px_rgba(0,0,0,0.25)] rounded-[10px] bg-white pt-[0.56rem] pb-[1rem] px-[1.56rem] flex flex-col justiy-center gap-[1rem] lg:w-[50rem] max-w-[50rem] ">
-        <header onClick={() => navigate(`/post/${_id}`)} className="post__header gap-[1rem] flex h-[3.125rem] items-center">
-            <img className=" cursor-pointer rounded-[50%] w-[3.125rem] h-[3.125rem]" src={user__img} alt="user_image" />
-            <h3 className="cursor-pointer text-[1rem] lowercase text-[#6C63FF] font-semibold drop-shadow-lg  ">{username}</h3>
+        <header className="post__header gap-[1rem] flex h-[3.125rem] items-center">
+            <img onClick={() => navigate(`/profile/${findUserName(username)}`)} className=" cursor-pointer rounded-[50%] w-[3.125rem] h-[3.125rem]" src={user__img} alt="user_image" />
+            <h3 onClick={() => navigate(`/profile/${findUserName(username)}`)} className="cursor-pointer text-[1rem] lowercase text-[#6C63FF] font-semibold drop-shadow-lg  ">{username}</h3>
             <p><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
             </svg>
@@ -50,7 +63,7 @@ export const Post = ({ post, bookmarkMode = false }) => {
                 </svg>
 
             </button>
-            <button onClick={() => { !bookmarkMode ? bookmarkpost(_id) : removeBookMark(_id) }} className={`bookmark__button hover:text-[#fe7575] transition-colors ${bookmarkMode ? "text-red-600" : null}`}>
+            <button onClick={() => { !findInBookmarks(post._id) ? bookmarkpost(_id) : removeBookMark(_id) }} className={`bookmark__button hover:text-[#fe7575] transition-colors ${findInBookmarks(post._id) ? "text-indigo-600" : null} `}>
                 <svg className=" w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" >
                     <path fillRule="evenodd" d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z" clipRule="evenodd" />
                 </svg>
