@@ -5,7 +5,8 @@ module.exports = {
     extend: {
       backgroundImage: {
         'profile-blob': "url(./assets/profile__blob.svg)",
-        'profile-wave': "url(./assets/profile__wave.svg)"
+        'profile-wave': "url(./assets/profile__wave.svg)",
+        'profile-poly': "url(./assets/profile__poly.svg)"
       }
     },
   },
