@@ -10,7 +10,7 @@ function LeftSIdeBar() {
     return (
         <div className="left__nav bg-[#f1f1f1]   w-[18.75rem] px-[42px] flex flex-col items-center justify-between">
             <div className="feed__nav__links container w-[13.1875rem] h-[15rem] rounded-[10px] bg-white text-[#6C63FF] flex flex-col items-start justify-center px-[60px] gap-[20px]">
-                <NavLink style={getActiveStyle} className="navLinks text-left text-[1rem] font-semibold hover:text-[#9690ff] drop-shadow-xs" to="/">Home</NavLink>
+                <NavLink style={getActiveStyle} className="navLinks text-left text-[1rem] font-semibold hover:text-[#9690ff] drop-shadow-xs" to="/">Feed</NavLink>
                 <NavLink style={getActiveStyle} className="navLinks text-left text-[1rem] font-semibold hover:text-[#9690ff] drop-shadow-xs" to="/explore">Explore</NavLink>
                 <NavLink style={getActiveStyle} className="navLinks text-left text-[1rem] font-semibold hover:text-[#9690ff] drop-shadow-xs" to="/bookmarks">Bookmarks</NavLink>
                 <NavLink style={getActiveStyle} className="navLinks text-left text-[1rem] font-semibold hover:text-[#9690ff] drop-shadow-xs" to={`/profile/${userData._id}`}>Profile</NavLink>

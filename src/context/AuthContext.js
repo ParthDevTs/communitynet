@@ -17,6 +17,7 @@ export const AuthProvider = ({ children }) => {
     const [profileData, setProfileData] = useState({});
     const authToken = localStorage.getItem("encodedToken");
     const [currentUserProfileId, setCurrentUserProfileId] = useState(userData._id)
+    const [openEditProfile, setOpenEditProfile] = useState(false);
 
     const guestLogin = async () => {
         setShowLoading(true)
@@ -106,7 +107,7 @@ export const AuthProvider = ({ children }) => {
         })
             .then(async (res) => await res.json())
             .then(async (data) => {
-                console.log(data)
+
                 if (data.createdUser) {
                     localStorage.setItem("encodedToken", data.encodedToken);
                     setUserData(data.createdUser)
@@ -157,6 +158,37 @@ export const AuthProvider = ({ children }) => {
             .catch(error => console.error(error))
     }
 
+    const editProfile = async (editedData) => {
+        setShowLoading(true)
+        const header = {
+            authorization: localStorage.getItem("encodedToken")
+        }
+        await fetch("/api/users/edit", {
+            method: "POST",
+            body: JSON.stringify({ userData: { ...userData, ...editedData } }),
+            headers: header
+        })
+            .then(async (res) => res.json())
+            .then(async (data) => {
+                console.log(data)
+                if (data.user) {
+                    setProfileData(data.user)
+                    setShowLoading(false)
+                    return true
+                } else {
+                    toast.error(" Some error Occured while updating Profile");
+                    setShowLoading(false)
+                    return false
+                }
+
+            })
+            .catch((e) => {
+                toast.error("Some error Occured while updating Profile");
+                setShowLoading(false)
+                return (false)
+            });
+    }
+
     const logOut = () => {
         // resetCounters();
         setShowLoading(true)
@@ -167,7 +199,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ setShowLoading, currentUserProfileId, setCurrentUserProfileId, profileData, setProfileData, getProfileDataFromParams, setUserData, showLoading, userData, userName, isLoggedIn, setIsLoggedIn, guestLogin, logOut, loginAuth, signUp, authToken }}>
+        <AuthContext.Provider value={{ editProfile, openEditProfile, setOpenEditProfile, setShowLoading, currentUserProfileId, setCurrentUserProfileId, profileData, setProfileData, getProfileDataFromParams, setUserData, showLoading, userData, userName, isLoggedIn, setIsLoggedIn, guestLogin, logOut, loginAuth, signUp, authToken }}>
             {children}
         </AuthContext.Provider>
     );

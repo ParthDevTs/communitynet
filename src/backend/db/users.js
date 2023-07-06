@@ -34,7 +34,7 @@ export const users = [
     following: [],
     bio: "Bio? Nahi Li Maine",
     url: "https://djikstracommerce.netlify.app/",
-    profile__bg: "blob"
+    profile__bg: "poly"
   },
   {
     _id: uuid(),

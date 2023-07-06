@@ -16,7 +16,7 @@ function Explore() {
                 <LeftSIdeBar />
                 <div className="posts min-w-[52.5rem] h-[calc(100vh-5.75rem)]  bg-[#f1f1f1] flex-grow overflow-y-auto flex flex-col items-center justify-start ">
 
-                    <ul className="postsContainer  container flex flex-col gap-[50px] items-center justify-start">
+                    <ul className="postsContainer  container flex flex-col gap-[15px] items-center justify-start">
                         {allPosts.map((post) => {
                             return <Post key={post._id} post={post} />
                         })}

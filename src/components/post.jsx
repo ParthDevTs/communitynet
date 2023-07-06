@@ -2,12 +2,14 @@ import { useNavigate } from "react-router-dom";
 import user__img from "../assets/user__placeholder.jpg";
 import { usePostContext } from "../context/postContext";
 import dayjs from 'dayjs';
+import PostDelDropDown from "./dropdown";
+import { useAuthContext } from "../context/AuthContext";
 
-export const Post = ({ post, bookmarkMode = false }) => {
+export const Post = ({ post }) => {
 
     const navigate = useNavigate();
     const { likeaPost, findUserExistsinLiked, disLikedPost, bookmarkpost, removeBookMark, bookmarkedPosts, allUsers } = usePostContext()
-
+    const { userData } = useAuthContext()
 
     const { _id, content, likes: { likedBy = [] }, username, createdAt } = post;
     const now = dayjs();
@@ -34,14 +36,16 @@ export const Post = ({ post, bookmarkMode = false }) => {
 
 
     return <div className="post shadow-[0px_4px_8px_-4px_rgba(0,0,0,0.25)] rounded-[10px] bg-white pt-[0.56rem] pb-[1rem] px-[1.56rem] flex flex-col justiy-center gap-[1rem] lg:w-[50rem] max-w-[50rem] ">
-        <header className="post__header gap-[1rem] flex h-[3.125rem] items-center">
+        <header className="post__header gap-[1rem] flex h-[3.125rem] items-center relative">
             <img onClick={() => navigate(`/profile/${findUserName(username)}`)} className=" cursor-pointer rounded-[50%] w-[3.125rem] h-[3.125rem]" src={user__img} alt="user_image" />
             <h3 onClick={() => navigate(`/profile/${findUserName(username)}`)} className="cursor-pointer text-[1rem] lowercase text-[#6C63FF] font-semibold drop-shadow-lg  ">{username}</h3>
-            <p><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
-            </svg>
+            <p className=" border-r h-4 ">
             </p>
             <p className="text-xs text-slate-300">{`${createddifferenceMinute}m`} {createddifferenceDay !== 0 ? `${createddifferenceDay}d ` : null}ago</p>
+            <div className="spacer flex-grow"></div>
+            <div className="drpDwnContainer">
+                {username === userData.username && <PostDelDropDown postId={_id} />}
+            </div>
         </header>
         <div className="postContent flex flex-col gap-4 w-full">
             <p className="text-[0.8rem] w-full bg-slate-100 py-3 px-2 rounded-lg ">{content}</p>

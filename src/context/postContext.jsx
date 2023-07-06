@@ -89,6 +89,31 @@ export const PostProvider = ({ children }) => {
             .catch(error => console.error(error))
     }
 
+
+    const deletePost = async (postId) => {
+        const header = {
+            authorization: localStorage.getItem("encodedToken"),
+        };
+
+        await fetch(`/api/user/posts/${postId}`, {
+            method: "DELETE",
+            headers: header,
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.posts) {
+                    setAllPosts(data.posts); toast.dark("Post Deleted")
+                }
+                else {
+                    toast.error("Some Error Occurred, please try again later")
+                }
+
+            })
+            .catch(error => console.error(error))
+    }
+
+
+
     const findUserExistsinLiked = (likedby) => {
         const user = likedby.find(user => user.username === userName)
         return user ? true : false
@@ -222,7 +247,7 @@ export const PostProvider = ({ children }) => {
 
 
 
-    return <PostContext.Provider value={{ unFollow, removeBookMark, bookmarkpost, bookmarkedPosts, followList, followUser, allUsers, disLikedPost, findUserExistsinLiked, likeaPost, showPostLoading, setShowPostLoading, allPosts, allUserPosts, selectedPostData, getSelectedPostData }}>
+    return <PostContext.Provider value={{ deletePost, unFollow, removeBookMark, bookmarkpost, bookmarkedPosts, followList, followUser, allUsers, disLikedPost, findUserExistsinLiked, likeaPost, showPostLoading, setShowPostLoading, allPosts, allUserPosts, selectedPostData, getSelectedPostData }}>
         {children}
     </PostContext.Provider>
 }
