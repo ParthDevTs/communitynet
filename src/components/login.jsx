@@ -100,7 +100,7 @@ export const Login = () => {
                             </div>
                             <div className="names">
                                 <div className="label text-sm">Last Name</div>
-                                <input placeholder="Doe" autoComplete="last-name" onChange={formik.handleChange} type="text onBlur={formik.handleBlur}" value={formik.values.lastName} name="lastName" id="lastName" className="w-full caret-pink-500 h-[2.1875rem] disabled:bg-[#0000003d] border-black border-2 text-[#A0616A] text-[0.75rem] font-[700] px-[0.69rem] py-[0.63rem]" />
+                                <input placeholder="Doe" autoComplete="last-name" onChange={formik.handleChange} type="text" onBlur={formik.handleBlur} value={formik.values.lastName} name="lastName" id="lastName" className="w-full caret-pink-500 h-[2.1875rem] disabled:bg-[#0000003d] border-black border-2 text-[#A0616A] text-[0.75rem] font-[700] px-[0.69rem] py-[0.63rem]" />
                                 {formik.errors.lastName && formik.touched.lastName ? <p className="text-red-700 text-xs font-bold">{formik.errors.lastName}</p> : null}
                             </div>
                         </div>}
