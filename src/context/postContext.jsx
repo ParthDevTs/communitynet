@@ -16,6 +16,8 @@ export const PostProvider = ({ children }) => {
     const [bookmarkedPosts, setBookmarkedPosts] = useState([])
     const [followList, setFollowList] = useState([])
     const [showNewPost, setShowNewPost] = useState(false)
+    const [postforEditing, setPostForEditing] = useState();
+    const [addNewPostMode, setAddNewPostMode] = useState("NEW__POST")
 
     const findFollowed = (user) => {
 
@@ -254,6 +256,28 @@ export const PostProvider = ({ children }) => {
             })
             .catch(error => { console.error(error); setShowPostLoading(false); })
     }
+    const editPost = async (values, postId) => {
+
+        const header = {
+            authorization: localStorage.getItem("encodedToken"),
+        };
+        const postData = values
+        setShowPostLoading(true)
+        await fetch(`/api/posts/edit/${postId}`, {
+            method: "POST",
+            headers: header,
+            body: JSON.stringify({ postData })
+        })
+            .then(res => res.json())
+            .then(data => {
+
+                setAllPosts(data.posts);
+                setAllUserPOsts(data.posts.filter(post => findUserExistsinLiked(post.likes.likedBy)))
+                setShowPostLoading(false)
+                return true
+            })
+            .catch(error => { console.error(error); setShowPostLoading(false); })
+    }
 
     useEffect(() => {
         const handleLogin = () => {
@@ -303,7 +327,13 @@ export const PostProvider = ({ children }) => {
             getSelectedPostData,
             showNewPost,
             setShowNewPost,
-            addNewPost
+            addNewPost,
+            postforEditing,
+            setPostForEditing,
+            addNewPostMode,
+            setAddNewPostMode,
+            editPost
+
         }}>
 
         {children}

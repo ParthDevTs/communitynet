@@ -2,16 +2,22 @@ import React, { useState } from 'react'
 import { usePostContext } from '../context/postContext'
 
 
-function PostDelDropDown({ postId }) {
+function PostDelDropDown({ postId, post }) {
     const [showDrpDwn, setShowDrpDown] = useState(false)
-    const { deletePost, setShowNewPost } = usePostContext()
+    const { deletePost, setShowNewPost, setPostForEditing, setAddNewPostMode } = usePostContext()
     const deletePostHandler = () => {
         deletePost(postId);
         setShowDrpDown(false)
     }
+    const editPostHandler = () => {
+        setAddNewPostMode("EDIT__POST")
+        setPostForEditing(post)
+        setShowNewPost(true)
+        setShowDrpDown(false)
+    }
     return (
         <div className="relative">
-            <button onClick={() => setShowDrpDown(!showDrpDwn)} className="p-4 flex items-center justify-between tracking-wider border-transparent active:border-slate-500 duration-300 active:text-slate-500">
+            <button onClick={() => setShowDrpDown(!showDrpDwn)} className="p-4 w-[12rem] flex items-center justify-end tracking-wider border-transparent active:border-slate-500 duration-300 active:text-slate-500">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                 </svg>
@@ -28,7 +34,7 @@ function PostDelDropDown({ postId }) {
                             </svg>
                         </span>
                     </button>
-                    <button onClick={() => setShowNewPost(true)} className="edit__button py-2 px-4 text-slate-600 flex  items-center justify-center w-full text-sm hover:bg-slate-200 hover:bg-opacity-100 rounded-md">
+                    <button onClick={editPostHandler} className="edit__button py-2 px-4 text-slate-600 flex  items-center justify-center w-full text-sm hover:bg-slate-200 hover:bg-opacity-100 rounded-md">
                         <p className=" drop-shadow-lg">Edit Post</p>
                         <div className="spacer flex-grow"></div>
                         <span className=" drop-shadow-lg">

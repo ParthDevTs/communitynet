@@ -44,17 +44,18 @@ export const Post = ({ post }) => {
             <h3 onClick={() => navigate(`/profile/${findUserName(username)}`)} className="cursor-pointer text-[1rem] lowercase text-[#6C63FF] font-semibold drop-shadow-lg  ">{username}</h3>
             <p className=" border-r h-4 ">
             </p>
-            <p className="text-xs text-slate-300">{`${createddifferenceMinute}m`} {createddifferenceDay !== 0 ? `${createddifferenceDay}d ` : null}ago</p>
+            {createddifferenceMinute > 2 && <p className="text-xs text-slate-300">{`${createddifferenceMinute}m`} {createddifferenceDay !== 0 ? `${createddifferenceDay}d ` : null}ago</p>}
+            {createddifferenceMinute <= 2 && <p className="text-xs text-slate-300">now</p>}
             <div className="spacer flex-grow"></div>
             <div className="drpDwnContainer">
-                {username === userData.username && <PostDelDropDown postId={post._id} />}
+                {username === userData.username && <PostDelDropDown postId={post._id} post={post} />}
             </div>
         </header>
         <div className="postContent flex flex-col gap-4 w-full">
             <p className="text-[0.8rem] w-full bg-slate-100 py-3 px-2 rounded-lg ">{content}</p>
             {post.image &&
                 <div onClick={() => navigate(`/post/${_id}`)} className="image__container flex-grow w-full grid place-content-center cursor-pointer" >
-                    <img className="max-w-[740px] max-h-[540px] rounded-lg" src={post.image} alt={username} />
+                    <img loading="lazy" className="max-w-[740px] max-h-[540px] rounded-lg" src={post.image} alt={username} />
                 </div>}
         </div>
         <div className="action__buttons flex items-center justify-evenly w-[47remrem] h-[1.875rem]">
