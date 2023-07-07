@@ -35,7 +35,6 @@ export const Feed = () => {
                 const a = dayjs(first.createdAt);
                 const b = dayjs(second.createdAt)
                 const diff = b.diff(a, "millisecond")
-                console.log(diff)
                 return diff > 0 ? 1 : -1
             default:
                 return first.content.length > second.content.length ? 1 : -1

@@ -12,7 +12,7 @@ function Follow() {
         const getallusers = async () => {
             await fetch(" /api/users")
                 .then(res => res.json())
-                .then(data => { setAllUsers(data.users); console.log(data.users) })
+                .then(data => { setAllUsers(data.users); })
                 .catch(error => console.error(error))
         }
         getallusers()

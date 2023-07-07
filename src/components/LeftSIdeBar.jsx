@@ -24,7 +24,7 @@ function LeftSIdeBar() {
             </div>
             <div className="spacer flex flex-grow"></div>
             <div className="userContainer flex gap-4">
-                <img onClick={() => navigate(`/profile/${userData._id}`)} className="h-20 w-[3.75rem]  rounded-lg cursor-pointer" src={userData?.imgUrl} alt={userData.firstName} />
+                <img onClick={() => navigate(`/profile/${userData._id}`)} className="h-20 w-[3.75rem] object-center object-scale-down  rounded-lg cursor-pointer" src={userData?.imgUrl} alt={userData.firstName} />
                 <div onClick={() => navigate(`/profile/${userData._id}`)} className="userDetails flex flex-col justify-center cursor-pointer ">
                     <p>{`${userData?.firstName} ${userData?.lastName}`}</p>
                     <p className="text-xs font-bold text-slate-400">{`@${userData.username}`}</p>

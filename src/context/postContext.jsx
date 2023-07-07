@@ -177,7 +177,7 @@ export const PostProvider = ({ children }) => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data.bookmarks)
+
                 setBookmarkedPosts(data.bookmarks)
                 toast.dark("Post added to Bookmarks")
                 setShowPostLoading(false)
@@ -196,7 +196,7 @@ export const PostProvider = ({ children }) => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data.bookmarks)
+
                 setBookmarkedPosts(data.bookmarks)
                 toast.dark("Post removed from Bookmarks")
                 setShowPostLoading(false)
@@ -228,12 +228,12 @@ export const PostProvider = ({ children }) => {
     const getallusers = async () => {
         await fetch(" /api/users")
             .then(res => res.json())
-            .then(data => { setAllUsers(data.users); console.log(data.users) })
+            .then(data => { setAllUsers(data.users); })
             .catch(error => console.error(error))
     }
 
     const addNewPost = async (values) => {
-        console.log(values)
+
         const header = {
             authorization: localStorage.getItem("encodedToken"),
         };
@@ -246,7 +246,7 @@ export const PostProvider = ({ children }) => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+
                 setAllPosts(data.posts);
                 setAllUserPOsts(data.posts.filter(post => findUserExistsinLiked(post.likes.likedBy)))
                 setShowPostLoading(false)
@@ -266,36 +266,6 @@ export const PostProvider = ({ children }) => {
     }, [isLoggedIn])
 
 
-    // useEffect(() => {
-    //     const header = {
-    //         authorization: localStorage.getItem("encodedToken"),
-    //     };
-
-    //     const getAllbookmarks = async () => {
-    //         await fetch("/api/users/bookmark/", { headers: header })
-    //             .then((res) => res.json())
-    //             .then((data) => {
-
-    //                 setBookmarkedPosts(data.bookmarks);
-    //             })
-    //     }
-
-    //     const getAllPosts = async () => {
-    //         await fetch("/api/posts")
-    //             .then((res) => res.json())
-    //             .then((data) => {
-    //                 setAllPosts(data.posts);
-    //                 setAllUserPOsts(data.posts.filter(post => findUserExistsinLiked(post.likes.likedBy)))
-    //             })
-    //     }
-    //     const getallusers = async () => {
-    //         await fetch(" /api/users").then(res => res.json()).then(data => { setAllUsers(data.users); console.log(data.users) }).catch(error => console.error(error))
-    //     }
-    //     getAllPosts();
-    //     getallusers();
-    //     getAllbookmarks();
-    //     // eslint-disable-next-line
-    // }, [userData])
 
     const updateUserDataFromAuth = () => {
         setUserGlobal(userData)
@@ -341,3 +311,38 @@ export const PostProvider = ({ children }) => {
 }
 
 export const usePostContext = () => useContext(PostContext);
+
+
+
+
+
+    // useEffect(() => {
+    //     const header = {
+    //         authorization: localStorage.getItem("encodedToken"),
+    //     };
+
+    //     const getAllbookmarks = async () => {
+    //         await fetch("/api/users/bookmark/", { headers: header })
+    //             .then((res) => res.json())
+    //             .then((data) => {
+
+    //                 setBookmarkedPosts(data.bookmarks);
+    //             })
+    //     }
+
+    //     const getAllPosts = async () => {
+    //         await fetch("/api/posts")
+    //             .then((res) => res.json())
+    //             .then((data) => {
+    //                 setAllPosts(data.posts);
+    //                 setAllUserPOsts(data.posts.filter(post => findUserExistsinLiked(post.likes.likedBy)))
+    //             })
+    //     }
+    //     const getallusers = async () => {
+    //         await fetch(" /api/users").then(res => res.json()).then(data => { setAllUsers(data.users); console.log(data.users) }).catch(error => console.error(error))
+    //     }
+    //     getAllPosts();
+    //     getallusers();
+    //     getAllbookmarks();
+    //     // eslint-disable-next-line
+    // }, [userData])

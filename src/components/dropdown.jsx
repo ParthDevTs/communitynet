@@ -4,7 +4,7 @@ import { usePostContext } from '../context/postContext'
 
 function PostDelDropDown({ postId }) {
     const [showDrpDwn, setShowDrpDown] = useState(false)
-    const { deletePost } = usePostContext()
+    const { deletePost, setShowNewPost } = usePostContext()
     const deletePostHandler = () => {
         deletePost(postId);
         setShowDrpDown(false)
@@ -28,7 +28,7 @@ function PostDelDropDown({ postId }) {
                             </svg>
                         </span>
                     </button>
-                    <button className="edit__button py-2 px-4 text-slate-600 flex  items-center justify-center w-full text-sm hover:bg-slate-200 hover:bg-opacity-100 rounded-md">
+                    <button onClick={() => setShowNewPost(true)} className="edit__button py-2 px-4 text-slate-600 flex  items-center justify-center w-full text-sm hover:bg-slate-200 hover:bg-opacity-100 rounded-md">
                         <p className=" drop-shadow-lg">Edit Post</p>
                         <div className="spacer flex-grow"></div>
                         <span className=" drop-shadow-lg">

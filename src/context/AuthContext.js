@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }) => {
             .then(async (data) => {
 
                 if (data.encodedToken) {
-                    console.log(data)
+
                     setUserData(data?.foundUser)
                     localStorage.setItem("encodedToken", data.encodedToken);
                     localStorage.setItem("loginEmail", creds.email);
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     const loginAuth = async (logincred) => {
-        console.log(logincred)
+
         setShowLoading(true)
         let id = toast("Logging In");
 
@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }) => {
             body: JSON.stringify(logincred),
         }).then(async (res) => await res.json())
             .then(async (data) => {
-                console.log(data)
+
                 if (data.encodedToken) {
                     setUserData(data?.foundUser)
                     setUserName(data?.foundUser.username)
@@ -193,6 +193,7 @@ export const AuthProvider = ({ children }) => {
 
                 if (data.user) {
                     setProfileData(data.user)
+                    setUserData(data.user)
                     setShowLoading(false)
                     return true
                 } else {
