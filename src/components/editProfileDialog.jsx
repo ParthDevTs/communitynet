@@ -1,25 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useAuthContext } from '../context/AuthContext'
 import { useFormik } from "formik"
 import * as Yup from "yup";
 import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 
 
 function EditProfileDialog({ profileData }) {
-    const { bio, url, profile__bg } = profileData
+    const { bio, url, profile__bg, imgUrl } = profileData
+    const [newImgUrl, setNewImgUrl] = useState(imgUrl)
     // const [imgUrlValue, setimgUrlValue] = useState(null)
 
     const { setOpenEditProfile, editProfile } = useAuthContext();
     const editInitialValues = {
         bio: bio,
         url: url,
-        profile__bg: profile__bg
+        profile__bg: profile__bg,
+
+    }
+
+    const changetoBase64 = (e) => {
+        console.log(e.target.files[0])
+        var reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0])
+        reader.onload = () => {
+            setNewImgUrl(reader.result)
+        }
+        reader.onerror = error => {
+            toast.error("Image Upload unsuccessfull")
+        }
     }
 
 
     const editProfileSchema = Yup.object({
-        bio: Yup.string(),
+        bio: Yup.string().max(256),
         url: Yup.string(),
         profile__bg: Yup.string()
     });
@@ -27,11 +42,13 @@ function EditProfileDialog({ profileData }) {
         initialValues: editInitialValues,
         validationSchema: editProfileSchema,
         onSubmit: (values) => {
-            const response = editProfile(values)
+            const response = editProfile({ ...values, imgUrl: newImgUrl })
             if (response) {
                 formik.resetForm()
                 setOpenEditProfile(false)
+                setNewImgUrl("")
             }
+
         }
     })
 
@@ -47,9 +64,10 @@ function EditProfileDialog({ profileData }) {
 
     return (
         <div className="absolute  rounded-lg top-0 left-0 w-full h-full z-10 backdrop-filter backdrop-blur-lg flex items-center justify-center">
-            <button onClick={() => setOpenEditProfile(false)} className="absolute right-[2%] top-[3%]"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <button onClick={() => setOpenEditProfile(false)} className="absolute right-[2%] top-[3%]">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
             </button>
             <div className="edit__profile__box flex flex-col gap-4 items-center justify-evenly h-full py-6">
                 <div className="header">
@@ -63,11 +81,11 @@ function EditProfileDialog({ profileData }) {
                     <div className="form_control justify-between  grid grid-cols-4 items-center gap-4 ">
                         <label htmlFor="bio">Edit Bio</label>
                         <textarea
-                            className="w-full h-[5rem]  caret-pink-500 disabled:bg-#0000003d border-black border-2 col-span-3 text-[#A0616A] text-[0.75rem] font-[700] px-[0.69rem] py-[0.63rem]"
+                            className="w-full h-[5rem]  caret-pink-500 disabled:bg-#0000003d  bg-transparent border-current border-t-0 border-l-0 border-r-0 border-b col-span-3 text-[#A0616A] text-[0.75rem] font-[700] px-[0.69rem] py-[0.63rem]"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.bio}
-                            maxLength={150}
+                            maxLength={256}
                             type="textarea"
                             name="bio"
                             id="bio" ></textarea>
@@ -76,7 +94,7 @@ function EditProfileDialog({ profileData }) {
                     <div className="form_control justify-between grid grid-cols-4 items-center gap-4 ">
                         <label htmlFor="url">Link</label>
                         <input
-                            className="w-full h-[2.1875rem]  caret-pink-500 disabled:bg-#0000003d border-black border-2 col-span-3 text-[#A0616A] text-[0.75rem] font-[700] px-[0.69rem] py-[0.63rem]"
+                            className="w-full h-[2.1875rem]  caret-pink-500 disabled:bg-#0000003d bg-transparent border-current border-t-0 border-l-0 border-r-0 border-b  col-span-3 text-[#A0616A] text-[0.75rem] font-[700] px-[0.69rem] py-[0.63rem]"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.url}
@@ -89,7 +107,7 @@ function EditProfileDialog({ profileData }) {
                     <div className="form_control justify-between grid grid-cols-4 items-center gap-4 ">
                         <label htmlFor="profile__bg">Profile Background</label>
                         <select
-                            className="w-full  font-sm rounded capitalize  caret-pink-500 disabled:bg-#0000003d border-black border-2 col-span-3 text-[#A0616A] text-[0.75rem] font-[700] px-[0.69rem] py-[0.63rem]"
+                            className="w-full font-sm rounded capitalize bg-transparent border-transparent  caret-pink-500 disabled:bg-#0000003d col-span-3 text-[#A0616A] text-[0.75rem] font-[700] px-[0.69rem] py-[0.63rem]"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.profile__bg}
@@ -97,7 +115,7 @@ function EditProfileDialog({ profileData }) {
                             name="profile__bg"
                             id="profile__bg"
                         >
-                            <option disabled className="bg-slate-200 text-slate-300 tex-sm">Please Choose a Background</option>
+                            <option disabled className="bg-slate-200 text-slate-500 ">Please Choose a Background</option>
                             {bg__options.map((option, index) => {
                                 return <option value={option} className={` px-4 py-2 text-sm capitalize ${profileData.profile__bg === option ? "bg-slate-500/40" : "bg-white/40"}`} key={index}>{option}</option>
                             })}
@@ -105,15 +123,18 @@ function EditProfileDialog({ profileData }) {
                         {formik.errors.url && formik.touched.url ? <p className="text-red-700 text-xs font-bold">{formik.errors.url}</p> : null}
                     </div>
 
-                    {/* <div className="form_control justify-between grid grid-cols-4 items-center ">
-                        <label htmlFor="imgUrl">Add Image</label>
-                        <input onChange={(event) => {
-                            setimgUrlValue("file", event.currentTarget.files[0]);
-                            formik.setFieldValue({
-                                imgUrl: event.currentTarget.files[0],
-                            })
-                        }} onBlur={formik.handleBlur} value={formik.values.imgUrl} accept="image/*" className="col-span-3" type="file" name="imgUrl" id="imgUrl" />
-                    </div> */}
+                    <div className="form_control justify-between grid grid-cols-4 items-center gap-4 ">
+                        <label htmlFor="imgUrl">Update Profile Picture</label>
+                        <input onChange={(event) =>
+                            changetoBase64(event)}
+                            onBlur={formik.handleBlur}
+                            accept="image/*"
+                            className="col-span-2 bg-transparent px-2  text-[#A0616A]  border-transparent"
+                            type="file"
+                            name="imgUrl"
+                            id="imgUrl" />
+                        {newImgUrl !== imgUrl ? <img src={newImgUrl} className="max-h-8 max-w-8" alt="profile" /> : ""}
+                    </div>
                     <footer className="profile__edit__footer flex gap-4 items-center justify-center">
                         <button
                             type="submit"

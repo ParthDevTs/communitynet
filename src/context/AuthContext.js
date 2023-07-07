@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 
+
 export const AuthContext = createContext({ isLoggedIn: false });
 
 
@@ -16,8 +17,9 @@ export const AuthProvider = ({ children }) => {
     const [showLoading, setShowLoading] = useState(false)
     const [profileData, setProfileData] = useState({});
     const authToken = localStorage.getItem("encodedToken");
-    const [currentUserProfileId, setCurrentUserProfileId] = useState(userData._id)
+    const [currentUserProfileId, setCurrentUserProfileId] = useState("")
     const [openEditProfile, setOpenEditProfile] = useState(false);
+
 
     const guestLogin = async () => {
         setShowLoading(true)
@@ -28,6 +30,8 @@ export const AuthProvider = ({ children }) => {
             password: "parth",
         };
 
+
+
         await fetch("/api/auth/login", {
             method: "POST",
             body: JSON.stringify(creds),
@@ -36,7 +40,7 @@ export const AuthProvider = ({ children }) => {
             .then(async (data) => {
 
                 if (data.encodedToken) {
-
+                    console.log(data)
                     setUserData(data?.foundUser)
                     localStorage.setItem("encodedToken", data.encodedToken);
                     localStorage.setItem("loginEmail", creds.email);
@@ -46,7 +50,6 @@ export const AuthProvider = ({ children }) => {
                     toast.update(toastId, { type: toast.TYPE.SUCCESS, autoClose: 2200, render: <p>Welcome user <span className="font-bold text-violet-500">@{creds.username}</span></p> });
                     setUserName(creds.username)
                     setShowLoading(false)
-
                     return true;
                 } else {
                     toast.done(toastId)
@@ -65,29 +68,45 @@ export const AuthProvider = ({ children }) => {
     }
 
     const loginAuth = async (logincred) => {
+        console.log(logincred)
         setShowLoading(true)
         let id = toast("Logging In");
+
+
+
+
         await fetch("/api/auth/login", {
             method: "POST",
             body: JSON.stringify(logincred),
         }).then(async (res) => await res.json())
             .then(async (data) => {
+                console.log(data)
                 if (data.encodedToken) {
+                    setUserData(data?.foundUser)
+                    setUserName(data?.foundUser.username)
+                    setCurrentUserProfileId(data?.foundUser._id)
                     localStorage.setItem("encodedToken", data.encodedToken);
-                    localStorage.setItem("loginEmail", logincred.email);
+                    localStorage.setItem("loginEmail", data.foundUser.email);
                     setIsLoggedIn(true);
                     navigate(location?.state?.from?.pathname);
                     toast.done(id);
-                    toast.update(id, { type: toast.TYPE.SUCCESS, autoClose: 2200, render: <p>Welcome user <span className="font-bold text-violet-500">@{logincred.username}</span></p> });
-                    setShowLoading(false)
+                    toast.update(id,
+                        {
+                            type: toast.TYPE.SUCCESS,
+                            autoClose: 2200,
+                            render:
+                                <p>Welcome user
+                                    <span className="font-bold text-violet-500">@{data.foundUser.username}</span>
+                                </p>
+                        });
 
-                    setUserName(logincred.username)
+                    setShowLoading(false)
+                    return true;
                 }
                 else {
                     toast.done(id);
                     toast.update(id, { type: toast.TYPE.ERROR, autoClose: 2200, render: `Username and Password dont match` });
                     setShowLoading(false)
-
                     return false;
 
                 }
@@ -116,6 +135,7 @@ export const AuthProvider = ({ children }) => {
                     setShowLoading(false)
                     setUserName(data.createdUser.username)
                     toast.success(`Successfully Signed Up ${signUpCreds.username}`);
+
                     return (true)
                 } else {
                     toast.error("Some error Occured");
@@ -170,7 +190,7 @@ export const AuthProvider = ({ children }) => {
         })
             .then(async (res) => res.json())
             .then(async (data) => {
-                console.log(data)
+
                 if (data.user) {
                     setProfileData(data.user)
                     setShowLoading(false)
@@ -188,6 +208,8 @@ export const AuthProvider = ({ children }) => {
                 return (false)
             });
     }
+
+
 
     const logOut = () => {
         // resetCounters();

@@ -10,18 +10,24 @@ import PostView from "./pages/Post";
 import { ClimbingBoxLoader } from "react-spinners";
 
 import { useAuthContext } from "./context/AuthContext";
+import AddNewPost from "./components/addnewPost";
+import { usePostContext } from "./context/postContext";
 
 
 
 function App() {
 
   const { showLoading } = useAuthContext();
+  const { showNewPost } = usePostContext();
   return (
     <div className="App scroll-smooth relative z-1 ">
 
       {showLoading && <div className="loader z-[99] absolute h-full w-full bg-black/80 grid place-content-center">
         <ClimbingBoxLoader color="#FE7575" />
       </div>}
+
+
+      {showNewPost && <AddNewPost />}
 
       <Routes>
         <Route path="/" element={<RequiresAuth> <Feed /> </RequiresAuth>} ></Route>

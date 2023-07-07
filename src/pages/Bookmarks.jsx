@@ -6,11 +6,29 @@ import { usePostContext } from '../context/postContext';
 import { Post } from '../components/post';
 function Bookmarks() {
 
-    const { bookmarkedPosts } = usePostContext()
-    const fetchBookmarks = () => {
-    }
+    const { bookmarkedPosts, setBookmarkedPosts } = usePostContext()
 
-    useEffect(fetchBookmarks, [])
+
+    useEffect(() => {
+        const getAllbookmarks = async () => {
+            const header = {
+                authorization: localStorage.getItem("encodedToken"),
+            };
+
+            await fetch("/api/users/bookmark/", { headers: header })
+                .then((res) => res.json())
+                .then((data) => {
+
+                    setBookmarkedPosts(data.bookmarks);
+                })
+        }
+
+        getAllbookmarks()
+        // eslint-disable-next-line
+    }, [])
+
+
+
     return (
         <div className="feed__page h-full bg-[#f1f1f1]">
             <Navbar />

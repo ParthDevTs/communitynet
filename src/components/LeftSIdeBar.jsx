@@ -1,8 +1,10 @@
 import React from 'react'
 import { NavLink, useNavigate } from "react-router-dom"
 import { useAuthContext } from '../context/AuthContext';
+import { usePostContext } from '../context/postContext';
 function LeftSIdeBar() {
     const navigate = useNavigate();
+    const { setShowNewPost } = usePostContext()
     const { userData } = useAuthContext();
     const getActiveStyle = ({ isActive }) => ({
         color: isActive ? "#FFB8B8" : "",
@@ -14,6 +16,11 @@ function LeftSIdeBar() {
                 <NavLink style={getActiveStyle} className="navLinks text-left text-[1rem] font-semibold hover:text-[#9690ff] drop-shadow-xs" to="/explore">Explore</NavLink>
                 <NavLink style={getActiveStyle} className="navLinks text-left text-[1rem] font-semibold hover:text-[#9690ff] drop-shadow-xs" to="/bookmarks">Bookmarks</NavLink>
                 <NavLink style={getActiveStyle} className="navLinks text-left text-[1rem] font-semibold hover:text-[#9690ff] drop-shadow-xs" to={`/profile/${userData._id}`}>Profile</NavLink>
+            </div>
+            <div className="addnewPost my-8">
+                <button
+                    className="rounded text-sm hover:bg-[#4e49bd] text-white w-[8rem] h-[2rem] bg-[#6C63FF] shadow-[0px_10px_20px_-10px_#6C63FF]"
+                    onClick={() => setShowNewPost(true)}>New Post</button>
             </div>
             <div className="spacer flex flex-grow"></div>
             <div className="userContainer flex gap-4">

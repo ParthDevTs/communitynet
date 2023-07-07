@@ -9,7 +9,7 @@ export const Post = ({ post }) => {
 
     const navigate = useNavigate();
     const { likeaPost, findUserExistsinLiked, disLikedPost, bookmarkpost, removeBookMark, bookmarkedPosts, allUsers } = usePostContext()
-    const { userData } = useAuthContext()
+    const { userData, isLoggedIn } = useAuthContext()
 
     const { _id, content, likes: { likedBy = [] }, username, createdAt } = post;
     const now = dayjs();
@@ -21,7 +21,10 @@ export const Post = ({ post }) => {
     const userExistsLiked = findUserExistsinLiked(likedBy)
 
     const findInBookmarks = (postId) => {
-        const foundPost = bookmarkedPosts.find((post) => post._id === postId)
+        let foundPost = []
+        if (bookmarkedPosts) {
+            foundPost = bookmarkedPosts.find((post) => post._id === postId)
+        }
         if (foundPost) {
             return true
         }
@@ -44,7 +47,7 @@ export const Post = ({ post }) => {
             <p className="text-xs text-slate-300">{`${createddifferenceMinute}m`} {createddifferenceDay !== 0 ? `${createddifferenceDay}d ` : null}ago</p>
             <div className="spacer flex-grow"></div>
             <div className="drpDwnContainer">
-                {username === userData.username && <PostDelDropDown postId={_id} />}
+                {username === userData.username && <PostDelDropDown postId={post._id} />}
             </div>
         </header>
         <div className="postContent flex flex-col gap-4 w-full">
@@ -67,13 +70,11 @@ export const Post = ({ post }) => {
                 </svg>
 
             </button>
-            <button onClick={() => { !findInBookmarks(post._id) ? bookmarkpost(_id) : removeBookMark(_id) }} className={`bookmark__button hover:text-[#fe7575] transition-colors ${findInBookmarks(post._id) ? "text-indigo-600" : null} `}>
+            {isLoggedIn && <button onClick={() => { !findInBookmarks(post._id) ? bookmarkpost(_id) : removeBookMark(_id) }} className={`bookmark__button hover:text-[#fe7575] transition-colors ${findInBookmarks(post._id) ? "text-indigo-600" : null} `}>
                 <svg className=" w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" >
                     <path fillRule="evenodd" d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z" clipRule="evenodd" />
                 </svg>
-
-
-            </button>
+            </button>}
             <button className="send__button hover:text-[#fe7575]">
                 <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />

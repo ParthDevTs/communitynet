@@ -11,19 +11,21 @@ export const PostProvider = ({ children }) => {
     const [allUserPosts, setAllUserPOsts] = useState();
     const [selectedPostData, setSelectedPostData] = useState({});
     const [showPostLoading, setShowPostLoading] = useState(false)
-    const { userName, setUserData, userData, getProfileDataFromParams, currentUserProfileId } = useAuthContext();
+    const { userName, setUserData, userData, getProfileDataFromParams, currentUserProfileId, isLoggedIn } = useAuthContext();
     const [allUsers, setAllUsers] = useState([])
     const [bookmarkedPosts, setBookmarkedPosts] = useState([])
-
     const [followList, setFollowList] = useState([])
+    const [showNewPost, setShowNewPost] = useState(false)
 
     const findFollowed = (user) => {
+
         const exists = userData.following.find(userfollowing => userfollowing._id === user._id)
         if (exists) {
             return false
         } else {
             return true
         }
+
     }
     const setUserGlobal = (userData) => {
         setUserData(userData);
@@ -72,7 +74,7 @@ export const PostProvider = ({ children }) => {
         })
             .then(res => res.json())
             .then(data => { setAllPosts(data.posts); setShowPostLoading(false); toast.dark("Liked Post") })
-            .catch(error => console.error(error))
+            .catch(error => { console.error(error); setShowPostLoading(false); })
     }
     const disLikedPost = async (postId) => {
         const header = {
@@ -86,7 +88,7 @@ export const PostProvider = ({ children }) => {
         })
             .then(res => res.json())
             .then(data => { setAllPosts(data.posts); setShowPostLoading(false); toast.dark("Disliked Post") })
-            .catch(error => console.error(error))
+            .catch(error => { console.error(error); setShowPostLoading(false); })
     }
 
 
@@ -95,7 +97,7 @@ export const PostProvider = ({ children }) => {
             authorization: localStorage.getItem("encodedToken"),
         };
 
-        await fetch(`/api/user/posts/${postId}`, {
+        await fetch(`/api/posts/${postId}`, {
             method: "DELETE",
             headers: header,
         })
@@ -132,7 +134,7 @@ export const PostProvider = ({ children }) => {
             .then(res => res.json())
             .then(data => {
                 setUserGlobal(data.user);
-                toast.success(`Following ${data.followUser.username}`, {
+                toast.success(`Following @${data.followUser.username}`, {
                     icon: (({ theme, type }) => <img className="rounded-full" src={data.followUser.imgUrl} alt={data.followUser.username}></img>)
                 })
 
@@ -153,7 +155,7 @@ export const PostProvider = ({ children }) => {
             .then(res => res.json())
             .then(data => {
                 setUserGlobal(data.user);
-                toast.info(`UnFollowed ${data.followUser.username}`, {
+                toast.info(`UnFollowed @${data.followUser.username}`, {
                     icon: (({ theme, type }) => <img className="rounded-full" src={data.followUser.imgUrl} alt={data.followUser.username}></img>)
                 })
 
@@ -180,7 +182,7 @@ export const PostProvider = ({ children }) => {
                 toast.dark("Post added to Bookmarks")
                 setShowPostLoading(false)
             })
-            .catch(error => console.error(error))
+            .catch(error => { console.error(error); setShowPostLoading(true) })
     }
     const removeBookMark = async (postId) => {
         const header = {
@@ -199,40 +201,101 @@ export const PostProvider = ({ children }) => {
                 toast.dark("Post removed from Bookmarks")
                 setShowPostLoading(false)
             })
-            .catch(error => console.error(error))
+            .catch(error => { console.error(error); setShowPostLoading(false) })
     }
 
-
-    useEffect(() => {
+    const getAllbookmarks = async () => {
         const header = {
             authorization: localStorage.getItem("encodedToken"),
         };
 
-        const getAllbookmarks = async () => {
-            await fetch("/api/users/bookmark/", { headers: header })
-                .then((res) => res.json())
-                .then((data) => {
-                    console.log(data)
-                    setBookmarkedPosts(data.bookmarks);
-                })
-        }
+        await fetch("/api/users/bookmark/", { headers: header })
+            .then((res) => res.json())
+            .then((data) => {
 
-        const getAllPosts = async () => {
-            await fetch("/api/posts")
-                .then((res) => res.json())
-                .then((data) => {
-                    setAllPosts(data.posts);
-                    setAllUserPOsts(data.posts.filter(post => findUserExistsinLiked(post.likes.likedBy)))
-                })
+                setBookmarkedPosts(data.bookmarks);
+            })
+    }
+
+    const getAllPosts = async () => {
+        await fetch("/api/posts")
+            .then((res) => res.json())
+            .then((data) => {
+                setAllPosts(data.posts);
+                setAllUserPOsts(data.posts.filter(post => findUserExistsinLiked(post.likes.likedBy)))
+            })
+    }
+    const getallusers = async () => {
+        await fetch(" /api/users")
+            .then(res => res.json())
+            .then(data => { setAllUsers(data.users); console.log(data.users) })
+            .catch(error => console.error(error))
+    }
+
+    const addNewPost = async (values) => {
+        console.log(values)
+        const header = {
+            authorization: localStorage.getItem("encodedToken"),
+        };
+        const postData = values
+        setShowPostLoading(true)
+        await fetch(`/api/posts/`, {
+            method: "POST",
+            headers: header,
+            body: JSON.stringify({ postData })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                setAllPosts(data.posts);
+                setAllUserPOsts(data.posts.filter(post => findUserExistsinLiked(post.likes.likedBy)))
+                setShowPostLoading(false)
+                return true
+            })
+            .catch(error => { console.error(error); setShowPostLoading(false); })
+    }
+
+    useEffect(() => {
+        const handleLogin = () => {
+            getAllPosts();
+            getallusers();
+            getAllbookmarks()
         }
-        const getallusers = async () => {
-            await fetch(" /api/users").then(res => res.json()).then(data => { setAllUsers(data.users); console.log(data.users) }).catch(error => console.error(error))
-        }
-        getAllPosts();
-        getallusers();
-        getAllbookmarks();
+        handleLogin()
         // eslint-disable-next-line
-    }, [userData])
+    }, [isLoggedIn])
+
+
+    // useEffect(() => {
+    //     const header = {
+    //         authorization: localStorage.getItem("encodedToken"),
+    //     };
+
+    //     const getAllbookmarks = async () => {
+    //         await fetch("/api/users/bookmark/", { headers: header })
+    //             .then((res) => res.json())
+    //             .then((data) => {
+
+    //                 setBookmarkedPosts(data.bookmarks);
+    //             })
+    //     }
+
+    //     const getAllPosts = async () => {
+    //         await fetch("/api/posts")
+    //             .then((res) => res.json())
+    //             .then((data) => {
+    //                 setAllPosts(data.posts);
+    //                 setAllUserPOsts(data.posts.filter(post => findUserExistsinLiked(post.likes.likedBy)))
+    //             })
+    //     }
+    //     const getallusers = async () => {
+    //         await fetch(" /api/users").then(res => res.json()).then(data => { setAllUsers(data.users); console.log(data.users) }).catch(error => console.error(error))
+    //     }
+    //     getAllPosts();
+    //     getallusers();
+    //     getAllbookmarks();
+    //     // eslint-disable-next-line
+    // }, [userData])
 
     const updateUserDataFromAuth = () => {
         setUserGlobal(userData)
@@ -246,8 +309,33 @@ export const PostProvider = ({ children }) => {
 
 
 
+    return <PostContext.Provider
+        value={{
+            setAllUsers,
+            setBookmarkedPosts,
+            getAllbookmarks,
+            getallusers, getAllPosts,
+            deletePost, unFollow,
+            removeBookMark,
+            bookmarkpost,
+            bookmarkedPosts,
+            followList,
+            followUser,
+            allUsers,
+            disLikedPost,
+            findUserExistsinLiked,
+            likeaPost,
+            showPostLoading,
+            setShowPostLoading,
+            allPosts,
+            allUserPosts,
+            selectedPostData,
+            getSelectedPostData,
+            showNewPost,
+            setShowNewPost,
+            addNewPost
+        }}>
 
-    return <PostContext.Provider value={{ deletePost, unFollow, removeBookMark, bookmarkpost, bookmarkedPosts, followList, followUser, allUsers, disLikedPost, findUserExistsinLiked, likeaPost, showPostLoading, setShowPostLoading, allPosts, allUserPosts, selectedPostData, getSelectedPostData }}>
         {children}
     </PostContext.Provider>
 }

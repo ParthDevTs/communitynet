@@ -12,7 +12,7 @@ export const posts = [
     content:
       "When you're on a mission, you have to sacrifice some of the pleasures of life. The harder it is - the more meaningful. The more meaningful - the greater the results.",
     likes: {
-      likeCount: 0,
+      likeCount: 5,
       likedBy: [],
       dislikedBy: [],
     },
@@ -26,7 +26,7 @@ export const posts = [
     content:
       "Is this a Aurora??? :p",
     likes: {
-      likeCount: 0,
+      likeCount: 12,
       likedBy: [],
       dislikedBy: [],
     },
@@ -40,7 +40,7 @@ export const posts = [
     content:
       "Perfectionism is a disease that paralyzes action.Rather than obsessing over every detail, take risks, make mistakes, and embrace imperfection!",
     likes: {
-      likeCount: 0,
+      likeCount: 18,
       likedBy: [],
       dislikedBy: [],
     },
@@ -54,7 +54,7 @@ export const posts = [
     content:
       "The Rain is Crazyyyy...",
     likes: {
-      likeCount: 0,
+      likeCount: 2,
       likedBy: [],
       dislikedBy: [],
     },
@@ -68,7 +68,7 @@ export const posts = [
     content:
       "Would anyone know of a coffee shop close to the DN nagar metro station? Need it for a work meeting.",
     likes: {
-      likeCount: 0,
+      likeCount: 15,
       likedBy: [],
       dislikedBy: [],
     },
@@ -82,7 +82,7 @@ export const posts = [
     content:
       "Found this Amazing Mustang in Chennai",
     likes: {
-      likeCount: 0,
+      likeCount: 34,
       likedBy: [],
       dislikedBy: [],
     },
@@ -96,7 +96,7 @@ export const posts = [
     content:
       "My Monsoon Trip to Barog!",
     likes: {
-      likeCount: 0,
+      likeCount: 12,
       likedBy: [],
       dislikedBy: [],
     },

@@ -1,12 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { usePostContext } from '../context/postContext'
 import { useAuthContext } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom';
 
 function Follow() {
-    const { allUsers, followUser, unFollow } = usePostContext()
-    const { userData } = useAuthContext();
+    const { allUsers, followUser, unFollow, setAllUsers } = usePostContext()
+    const { userData, isLoggedIn } = useAuthContext();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const getallusers = async () => {
+            await fetch(" /api/users")
+                .then(res => res.json())
+                .then(data => { setAllUsers(data.users); console.log(data.users) })
+                .catch(error => console.error(error))
+        }
+        getallusers()
+        // eslint-disable-next-line
+    }, [])
+
+
 
 
     const findFollowed = (user) => {
@@ -30,11 +43,11 @@ function Follow() {
         <div className="follow bg-[#f1f1f1] h-full w-[18.75rem] grid place-content-center">
             <div className="follow__list rounded-[10px] bg-white h-[30rem] w-[15.1875rem] flex flex-col items-center justify-start px-[1.38rem] py-[1rem]">
                 <p className="capitalize ">Users to Follow</p>
-                <ul className="follow__user__container container flex gap-5 flex-col mt-4">
+                {isLoggedIn && <ul className="follow__user__container container flex gap-5 flex-col mt-4">
                     {allUsers && allUsers.filter((user) => user.username !== userData.username).filter((user, index) => index <= 8 ? true : false).map(user => {
                         const { _id, username, imgUrl } = user;
                         return <li key={_id} className="flex items-center  gap-4 justify-between w-full ">
-                            <img src={imgUrl} alt="" className="w-[2.5rem] h-[2.5rem] rounded-full" />
+                            <img src={imgUrl} alt="" className="w-[2.5rem] h-[2.5rem] object-center  object-cover  rounded-full" />
                             <p onClick={() => navigate(`/profile/${_id}`)} className="text-xs text-left font-bold cursor-pointer flex-grow text-[#6C63FF] lowercase">@{username}</p>
                             <button className="text-[#FFB8B8] hover:text-red-400" onClick={() => followHandler(user)}>
                                 {findFollowed(user) ? <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -48,7 +61,7 @@ function Follow() {
                         </li>
                     })}
                     {allUsers.length === 0 ? <p>No More users to follow</p> : null}
-                </ul>
+                </ul>}
             </div>
         </div>
     )

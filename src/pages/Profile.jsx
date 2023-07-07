@@ -2,25 +2,63 @@ import React, { useEffect } from 'react'
 import Navbar from '../components/Navbar';
 import LeftSIdeBar from '../components/LeftSIdeBar';
 import Follow from '../components/follow';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAuthContext } from '../context/AuthContext';
 import { Post } from '../components/post';
 import { usePostContext } from '../context/postContext';
 import EditProfileDialog from '../components/editProfileDialog';
 function Profile() {
     const { userID } = useParams()
-    const { getProfileDataFromParams, profileData, userData, setCurrentUserProfileId, openEditProfile, setOpenEditProfile } = useAuthContext()
+    const navigate = useNavigate()
+
+
+    const { getProfileDataFromParams,
+        profileData,
+        userData,
+        setCurrentUserProfileId,
+        openEditProfile,
+        setOpenEditProfile,
+    } = useAuthContext()
+
+
+    const { followUser,
+        followList,
+        unFollow } = usePostContext()
+
+
+
+    const findUserinFollowList = followList?.find((user) => user._id === profileData._id)
+
+    const followHandler = () => {
+        if (findUserinFollowList) {
+            followUser(profileData._id)
+        } else {
+            unFollow(profileData._id)
+        }
+    }
+
     const { allPosts } = usePostContext()
     const getUserData = () => {
         getProfileDataFromParams(userID)
     }
+
+
     useEffect(getUserData
         // eslint-disable-next-line
         , [userID])
+
+    useEffect(() => {
+        if (!profileData) { navigate("/") }
+        // eslint-disable-next-line
+    }, [])
+
     useEffect(() => {
         if (userID) { setCurrentUserProfileId(userID) }
+
         // eslint-disable-next-line
     }, [userID])
+
+
     const { firstName, lastName, followers, following, imgUrl, bio, url, profile__bg } = profileData;
 
     const selectbg = () => {
@@ -53,8 +91,18 @@ function Profile() {
                         <div className={`user__profile ${selectbg()}   relative px-[2.3rem] gap-4 py-[1.12rem] shadow-[0px_4px_8px_-4px_rgba(0,0,0,0.25)] rounded-[10px] bg-white flex flex-col justiy-center lg:w-[50rem] max-w-[50rem]`}>
 
                             {userData.username === profileData.username &&
-                                <button onClick={() => setOpenEditProfile(true)} className="edit__button absolute rounded hover:bg-[#4e49bd] top-[5%] text-white w-[5rem] h-[2rem] bg-[#6C63FF] shadow-[0px_10px_20px_-10px_#6C63FF] left-[3%] ">EDIT</button>}
+                                <button onClick={() => setOpenEditProfile(true)} className="edit__button absolute rounded-sm hover:bg-[#4e49bd] top-[5%] text-white w-[5rem] h-[2rem] bg-[#6C63FF] shadow-[0px_10px_20px_-10px_#6C63FF] left-[3%] ">EDIT</button>}
                             {openEditProfile && <EditProfileDialog profileData={profileData} />}
+
+
+                            {userData.username !== profileData.username &&
+                                <button
+                                    onClick={followHandler}
+                                    className="edit__button absolute rounded-sm hover:bg-[#4e49bd] top-[5%] text-white w-[6rem] h-[2rem] bg-[#6C63FF] shadow-[0px_10px_20px_-10px_#6C63FF] right-[3%] ">
+                                    {!findUserinFollowList ? "Unfollow" : "Follow"}
+                                </button>
+                            }
+
                             <div className="profile__header  flex flex-col w-full items-center justify-star  gap-4">
                                 <img className="w-[9.375rem] h-[9.375rem] object-center  object-cover rounded-full" src={imgUrl} alt={profileData.username} />
                                 <div className="header__info flex-col flex gap-1 text-center w-full">
@@ -76,23 +124,8 @@ function Profile() {
                                 </div>
                             </div>
                         </div>
-                        <div className="add__new__post__box w-[50rem] h-[7.735rem]  bg-white flex flex-col items-start justify-center gap-[0.69rem] px-[1.44rem] py-[1.06rem]">
-                            <input type="text" name="newPostTxt" id="newPostTxt" placeholder="Whats On Your Mind?" className="whats__on__your__mind h-[3.125rem] w-[46.875rem] bg-[#f1f1f1] border-[transparent]" />
-                            <div className="iconLIst rounded-[5px] bg-[#f1f1f1] shadow-[0px_4px_8px_-4px_rgba(0,0,0,0.25)] h-[1.875rem] w-[5.0625rem] grid grid-cols-2 place-content-center">
-                                <button className="text-center grid place-content-center hover:text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                                        <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
-                                    </svg>
-                                </button>
-                                <button className="text-center grid place-content-center hover:text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
 
-                        <ul className="postsContainer mt-[1rem] container flex flex-col gap-[15px] items-center justify-start">
+                        <ul className="postsContainer container flex flex-col gap-[15px] items-center justify-start">
 
                             {allPosts.filter((post) => filterBySelf(post)).map((post) => {
                                 return <Post key={post._id} post={post} />
