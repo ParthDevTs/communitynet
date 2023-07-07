@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { usePostContext } from '../context/postContext'
 
 
+
 function PostDelDropDown({ postId, post }) {
     const [showDrpDwn, setShowDrpDown] = useState(false)
     const { deletePost, setShowNewPost, setPostForEditing, setAddNewPostMode } = usePostContext()
@@ -23,6 +24,7 @@ function PostDelDropDown({ postId, post }) {
                 </svg>
             </button>
 
+
             {showDrpDwn && (
                 <div className="bg-slate-100 box-border border px-4 bg-opacity-5 absolute top-[40px] backdrop-filter backdrop-blur-xl shadow-lg w-[12rem]  flex flex-col gap-6 rounded-sm right-3 py-4 ">
                     <button onClick={deletePostHandler} className="del__button py-2 text-slate-600 flex px-4  items-center justify-start w-full hover:bg-opacity-100  text-sm hover:bg-slate-200 rounded-md">
@@ -43,6 +45,7 @@ function PostDelDropDown({ postId, post }) {
                             </svg>
                         </span>
                     </button>
+
                 </div>
             )}
         </div>
