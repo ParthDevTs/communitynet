@@ -38,7 +38,7 @@ export const Login = () => {
         username: Yup
             .string()
             .min(6, "User ID must be atleast 6 Characters")
-            .max(20, "max character length 20")
+            .max(10, "max character length 10")
             .required("User ID is required")
             .matches("^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$", "Please use Alphanumeric and Special Characters(. and _ only) for username"),
         password: Yup

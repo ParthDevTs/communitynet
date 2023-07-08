@@ -4,11 +4,16 @@ import { useAuthContext } from '../context/AuthContext';
 import { usePostContext } from '../context/postContext';
 function LeftSIdeBar() {
     const navigate = useNavigate();
-    const { setShowNewPost } = usePostContext()
+    const { setShowNewPost, setAddNewPostMode } = usePostContext()
     const { userData } = useAuthContext();
     const getActiveStyle = ({ isActive }) => ({
         color: isActive ? "#FFB8B8" : "",
     });
+
+    const NwwPostHandler = () => {
+        setShowNewPost(true)
+        setAddNewPostMode("NEW__POST")
+    }
     return (
         <div className="left__nav bg-[#f1f1f1]   w-[18.75rem] px-[42px] flex flex-col items-center justify-between">
             <div className="feed__nav__links container w-[13.1875rem] h-[15rem] rounded-[10px] bg-white text-[#6C63FF] flex flex-col items-start justify-center px-[60px] gap-[20px]">
@@ -20,7 +25,7 @@ function LeftSIdeBar() {
             <div className="addnewPost my-8">
                 <button
                     className="rounded text-sm hover:bg-[#4e49bd] text-white w-[8rem] h-[2rem] bg-[#6C63FF] shadow-[0px_10px_20px_-10px_#6C63FF]"
-                    onClick={() => setShowNewPost(true)}>New Post</button>
+                    onClick={NwwPostHandler} >New Post</button>
             </div>
             <div className="spacer flex flex-grow"></div>
             <div className="userContainer flex gap-4">
