@@ -26,7 +26,7 @@ function PostView() {
             <Navbar />
             <div className="feed flex h-full my-4">
                 <LeftSIdeBar />
-                <div className="posts min-w-[52.5rem] h-[calc(100vh-5.75rem)]  bg-[#f1f1f1] flex-grow overflow-y-auto flex flex-col items-center justify-start ">
+                <div className="posts 2xl:min-w-[52.5rem] lg:w-[42rem] h-[calc(100vh-5.75rem)]  bg-[#f1f1f1] flex-grow overflow-y-auto flex flex-col items-center justify-start ">
                     <div className="postsContainer  container flex flex-col gap-[50px] items-center justify-start">
                         {selectedPostData.content && <Post post={selectedPostData} />}
                     </div>

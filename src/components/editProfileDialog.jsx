@@ -76,7 +76,7 @@ function EditProfileDialog({ profileData }) {
                 <form
                     onSubmit={formik.handleSubmit}
                     onReset={formik.handleReset}
-                    className="flex rounded-lg overflow-y-auto overflow-x-hidden bg-white/40 px-8 text-sm py-6 gap-2 flex-col items-stretch justify-evenly h-full w-full backdrop-filter backdrop-blur-md">
+                    className="flex rounded-lg overflow-y-auto text-xs overflow-x-hidden bg-white/40 px-8 2xl:text-sm py-6 gap-2 flex-col items-stretch justify-evenly h-full w-[80%] 2xl:w-full backdrop-filter backdrop-blur-md">
 
                     <div className="form_control justify-between  grid grid-cols-4 items-center gap-4 ">
                         <label htmlFor="bio">Edit Bio</label>

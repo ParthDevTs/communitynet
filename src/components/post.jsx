@@ -43,8 +43,10 @@ export const Post = ({ post }) => {
 
 
 
-    return <div className="post shadow-[0px_4px_8px_-4px_rgba(0,0,0,0.25)] rounded-[10px] bg-white pt-[0.56rem] pb-[1rem] px-[1.56rem] flex flex-col justiy-center gap-[1rem] lg:w-[50rem] max-w-[50rem] ">
-        <header className="post__header gap-[1rem] flex h-[3.125rem] items-center relative">
+    return <div
+        className="post shadow-[0px_4px_8px_-4px_rgba(0,0,0,0.25)] rounded-[10px] bg-white pt-[0.56rem] pb-[1rem] px-[1.56rem] flex flex-col justiy-center gap-[1rem] sm:w-[20rem] lg:w-[30rem] xl:w-[40rem] 2xl:w-[50rem]">
+        <header
+            className="post__header gap-[1rem] flex h-[3.125rem] items-center relative">
             <img
                 onClick={() => navigate(`/profile/${findUserName(username)}`)}
                 className=" cursor-pointer object-center object-cover rounded-[50%] w-[3.125rem] h-[3.125rem]"
@@ -64,7 +66,7 @@ export const Post = ({ post }) => {
             <p className="text-[0.8rem] w-full  py-3 px-2 rounded-lg ">{content}</p>
             {post.image &&
                 <div onClick={() => navigate(`/post/${_id}`)} className="image__container flex-grow w-full grid place-content-center cursor-pointer" >
-                    <img loading="lazy" className="max-w-[740px] max-h-[540px] rounded-lg" src={post.image} alt={username} />
+                    <img loading="lazy" className="2xl:max-w-[740px] 2xl:max-h-[540px]  rounded-lg" src={post.image} alt={username} />
                 </div>}
         </div>
         <div className="action__buttons flex items-center justify-evenly w-[47remrem] h-[1.875rem]">

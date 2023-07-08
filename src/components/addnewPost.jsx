@@ -106,7 +106,7 @@ function AddNewPost() {
                 </svg>
             </button>
             <form onSubmit={formik.handleSubmit} onReset={formik.handleReset}>
-                <div className="add__new__post__box w-[50rem] shadow-lg  bg-white flex flex-col items-center justify-center gap-[0.69rem] px-[1.44rem] py-[1.06rem]">
+                <div className="add__new__post__box w-[50rem] max-h-[80%] shadow-lg  bg-white flex flex-col items-center justify-center gap-[0.69rem] px-[1.44rem] py-[1.06rem]">
 
                     <textarea
                         type="textarea"
@@ -124,7 +124,7 @@ function AddNewPost() {
 
                     {newImgUrl &&
                         <img
-                            className="max-w-[740px] object-center object-contain max-h-[540px] rounded-lg"
+                            className=" object-center object-contain lg:h-[20rem]  2xl:max-h-[540px] rounded-lg"
                             src={newImgUrl}
                             alt='new Post' />
                     }
