@@ -103,7 +103,7 @@ export const users = [
     imgUrl: "https://qph.cf2.quoracdn.net/main-qimg-784a90c8853e3ce71e96e7189b887d2c-lq",
     following: [],
     bio: "Chaabi Kahan hai?",
-    url: "https://en.wikipedia.org/wiki/Gangs_of_Wasseypur_%E2%80%93_Part_1",
+    url: "https://twitter.com/wasseypurdon?lang=es",
     profile__bg: "wave"
   }
 ];
