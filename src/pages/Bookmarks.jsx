@@ -44,9 +44,10 @@ function Bookmarks() {
                             return <Post key={post._id} bookmarkMode={true} post={post} />
                         })}
                         {!bookmarkedPosts.length > 0 &&
-                            <div className="notDataFound">
+                            <div className="notDataFound mt-8">
+                                <h1 className="text-5xl w-full text-center  drop-shadow-lg">&lt; No <span className="text-[#6C63FF]">Bookmarks</span> Yet &#47; &gt;</h1>
+                                <p className="text-lg w-full text-center capitalize text-slate-400">Add a bookmark to some posts to see them here</p>
                                 <Lottie animationData={no_data_found} loop={true} />
-                                <h1 className="text-5xl w-full text-center">No Bookmarks Yet</h1>
                             </div>}
                     </ul>
 

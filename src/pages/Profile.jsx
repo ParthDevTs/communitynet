@@ -7,6 +7,8 @@ import { useAuthContext } from '../context/AuthContext';
 import { Post } from '../components/post';
 import { usePostContext } from '../context/postContext';
 import EditProfileDialog from '../components/editProfileDialog';
+import no_data_found from "../assets/no_data_found.json";
+import Lottie from "lottie-react";
 function Profile() {
     const { userID } = useParams()
     const navigate = useNavigate()
@@ -75,7 +77,7 @@ function Profile() {
     }
 
     const filterBySelf = (post) => {
-        if (post.username === profileData.username) {
+        if (post?.username === profileData?.username) {
             return true
         }
         return false
@@ -87,15 +89,15 @@ function Profile() {
             <div className="feed flex h-full my-4">
                 <LeftSIdeBar />
                 <div className=" z-0 posts min-w-[52.5rem] h-[calc(100vh-5.75rem)]  bg-[#f1f1f1] flex-grow overflow-y-auto flex flex-col items-center justify-start  gap-8">
-                    {profileData.username && <>
+                    {profileData?.username && <>
                         <div className={`user__profile ${selectbg()}   relative px-[2.3rem] gap-4 py-[1.12rem] shadow-[0px_4px_8px_-4px_rgba(0,0,0,0.25)] rounded-[10px] bg-white flex flex-col justiy-center lg:w-[50rem] max-w-[50rem]`}>
 
-                            {userData.username === profileData.username &&
+                            {userData?.username === profileData.username &&
                                 <button onClick={() => setOpenEditProfile(true)} className="edit__button absolute rounded-sm hover:bg-[#4e49bd] top-[5%] text-white w-[5rem] h-[2rem] bg-[#6C63FF] shadow-[0px_10px_20px_-10px_#6C63FF] left-[3%] ">EDIT</button>}
                             {openEditProfile && <EditProfileDialog profileData={profileData} />}
 
 
-                            {userData.username !== profileData.username &&
+                            {userData?.username !== profileData?.username &&
                                 <button
                                     onClick={followHandler}
                                     className="edit__button absolute rounded-sm hover:bg-[#4e49bd] top-[5%] text-white w-[6rem] h-[2rem] bg-[#6C63FF] shadow-[0px_10px_20px_-10px_#6C63FF] right-[3%] ">
@@ -112,8 +114,10 @@ function Profile() {
                                 </div>
                             </div>
                             <div className="bottomInfo flex w-full gap-[3rem]">
-                                <div className="bio  p-4 rounded-lg backdrop-blur-md  shadow-[0px_10px_20px_-10px_rgba(0,0,0,0.25)]  bg-[rgba(235,235,235,0.31)]">
-                                    <p className="w-[31rem] text-sm flex-wrap h-[7.4rem] tracking-tighter overflow-hidden break-words ">{bio ? bio : <span className="text-slate-400 font-mono capitalize">Bio Not Added</span>}</p>
+                                <div
+                                    className="bio  p-4 rounded-lg backdrop-blur-md  shadow-[0px_10px_20px_-10px_rgba(0,0,0,0.25)]  bg-[rgba(235,235,235,0.31)]">
+                                    <p
+                                        className="w-[31rem] text-sm flex-wrap h-[7.4rem] tracking-tighter overflow-hidden break-words ">{bio ? bio : <span className="text-slate-400 font-mono capitalize">Bio Not Added</span>}</p>
                                 </div>
                                 <div className="profile__counts px-4 rounded-md backdrop-blur-md  shadow-[0px_10px_20px_-10px_rgba(0,0,0,0.45)]  bg-[rgba(1,1,1,0.35)] text-white  text-sm grid grid-cols-3 grid-rows-2 py-[1.7rem] w-full gap-x-[1.3rem] gap-y-[1.19rem] place-content-center items-center justify-center">
                                     <p className="text-left col-span-2 text-white font-semibold uppercase">Followers</p>
@@ -127,10 +131,20 @@ function Profile() {
 
                         <ul className="postsContainer container flex flex-col gap-[15px] items-center justify-start">
 
-                            {allPosts.filter((post) => filterBySelf(post)).map((post) => {
+                            {allPosts?.filter((post) => filterBySelf(post)).map((post) => {
                                 return <Post key={post._id} post={post} />
                             })}
+
+                            {userData?.username === profileData.username && allPosts?.filter((post) => filterBySelf(post)).length === 0 &&
+                                <div className="notDataFound mt-8">
+                                    <h1 className="text-5xl w-full text-center drop-shadow-lg">&lt; Why So <span className="text-[#6C63FF]">Empty</span>? &#47; &gt;</h1>
+                                    <p className="text-lg w-full text-center capitalize text-slate-400 mt-1">Share your thoughts to see them here</p>
+                                    <p
+                                        className=" text-center text-slate-400 capitalize">Go to <span className="text-[#6C63FF] hover:text-[#4e49bd] bg-blue-100 rounded-lg px-2 py-1 pointer-events-none">&lt;button&gt; New Post  &lt;&#47;button&gt;</span> </p>
+                                    <Lottie animationData={no_data_found} loop={true} />
+                                </div>}
                         </ul>
+
                     </>
                     }
                 </div>

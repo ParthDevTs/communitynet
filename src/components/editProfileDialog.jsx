@@ -135,7 +135,7 @@ function EditProfileDialog({ profileData }) {
                             id="imgUrl" />
                         {newImgUrl !== imgUrl ? <img src={newImgUrl} className="max-h-8 max-w-8" alt="profile" /> : ""}
                     </div>
-                    <footer className="profile__edit__footer flex gap-4 items-center justify-center">
+                    <footer className="profile__edit__footer flex gap-4 mt-4 items-center justify-center">
                         <button
                             type="submit"
                             className=" bg-[#FFB8B8] text-xs transition-transform text-white font-bold   hover:scale-105 shadow-[0px_10px_12px_-6px_#6c63FF] px-3 py-2 w-[8rem]">

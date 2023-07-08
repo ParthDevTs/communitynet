@@ -7,7 +7,7 @@ function Navbar() {
     const navigate = useNavigate();
     return (
         <header className="top__header shadow h-[3.75rem] w-full px-[20px] py-[12px] bg-[#FFB8B82E] flex items-center justify-between">
-            <h1 onClick={() => navigate("/")} className="text-[24px] drop-shadow-md cursor-pointer">
+            <h1 onClick={() => navigate("/")} className="text-[24px] drop-shadow-lg cursor-pointer">
                 Community
                 <span className="text-[#6C63FF]">Net</span>
             </h1>

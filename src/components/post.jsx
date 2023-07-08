@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import user__img from "../assets/user__placeholder.jpg";
+
 import { usePostContext } from "../context/postContext";
 import dayjs from 'dayjs';
 import PostDelDropDown from "./dropdown";
@@ -32,15 +32,24 @@ export const Post = ({ post }) => {
     }
 
     const findUserName = (username) => {
-        const user = allUsers.find((user) => user.username === username);
+        const user = allUsers?.find((user) => user.username === username);
         return user._id
+    }
+
+    const findUserImage = (username) => {
+        const user = allUsers?.find((user) => user.username === username);
+        return user.imgUrl
     }
 
 
 
     return <div className="post shadow-[0px_4px_8px_-4px_rgba(0,0,0,0.25)] rounded-[10px] bg-white pt-[0.56rem] pb-[1rem] px-[1.56rem] flex flex-col justiy-center gap-[1rem] lg:w-[50rem] max-w-[50rem] ">
         <header className="post__header gap-[1rem] flex h-[3.125rem] items-center relative">
-            <img onClick={() => navigate(`/profile/${findUserName(username)}`)} className=" cursor-pointer rounded-[50%] w-[3.125rem] h-[3.125rem]" src={user__img} alt="user_image" />
+            <img
+                onClick={() => navigate(`/profile/${findUserName(username)}`)}
+                className=" cursor-pointer object-center object-cover rounded-[50%] w-[3.125rem] h-[3.125rem]"
+                src={findUserImage(username)}
+                alt={username} />
             <h3 onClick={() => navigate(`/profile/${findUserName(username)}`)} className="cursor-pointer text-[1rem] lowercase text-[#6C63FF] font-semibold drop-shadow-lg  ">{username}</h3>
             <p className=" border-r h-4 ">
             </p>
@@ -52,7 +61,7 @@ export const Post = ({ post }) => {
             </div>
         </header>
         <div className="postContent flex flex-col gap-4 w-full">
-            <p className="text-[0.8rem] w-full bg-slate-100 py-3 px-2 rounded-lg ">{content}</p>
+            <p className="text-[0.8rem] w-full  py-3 px-2 rounded-lg ">{content}</p>
             {post.image &&
                 <div onClick={() => navigate(`/post/${_id}`)} className="image__container flex-grow w-full grid place-content-center cursor-pointer" >
                     <img loading="lazy" className="max-w-[740px] max-h-[540px] rounded-lg" src={post.image} alt={username} />

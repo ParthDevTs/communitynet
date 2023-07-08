@@ -8,6 +8,8 @@ import Follow from "../components/follow";
 import { useAuthContext } from "../context/AuthContext";
 import { useState } from "react";
 import dayjs from 'dayjs';
+import no_data_found from "../assets/no_data_found.json";
+import Lottie from "lottie-react";
 
 export const Feed = () => {
 
@@ -73,6 +75,16 @@ export const Feed = () => {
                     {allPosts.filter((post) => filterByFollowing(post)).sort((first, second) => sortlist(first, second)).map((post) => {
                         return <Post key={post._id} post={post} />
                     })}
+                    {allPosts.filter((post) => filterByFollowing(post)).length === 0 &&
+                        <div className="notDataFound mt-8">
+                            <h1 className="text-5xl w-full text-center drop-shadow-lg">&lt; No <span className="text-[#6C63FF]">Posts</span>? &#47; &gt;</h1>
+                            <p
+                                className="text-lg w-full text-center capitalize text-slate-400">
+                                Follow Users to see their posts or create one
+                            </p>
+                            <Lottie animationData={no_data_found} loop={true} />
+
+                        </div>}
                 </ul>
             </div>
             <Follow />

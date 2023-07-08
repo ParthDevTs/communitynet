@@ -50,6 +50,7 @@ export const AuthProvider = ({ children }) => {
                     toast.update(toastId, { type: toast.TYPE.SUCCESS, autoClose: 2200, render: <p>Welcome user <span className="font-bold text-violet-500">@{creds.username}</span></p> });
                     setUserName(creds.username)
                     setShowLoading(false)
+                    navigate("/")
                     return true;
                 } else {
                     toast.done(toastId)
@@ -88,7 +89,8 @@ export const AuthProvider = ({ children }) => {
                     localStorage.setItem("encodedToken", data.encodedToken);
                     localStorage.setItem("loginEmail", data.foundUser.email);
                     setIsLoggedIn(true);
-                    navigate(location?.state?.from?.pathname);
+                    // navigate(location?.state?.from?.pathname);
+                    navigate("/")
                     toast.done(id);
                     toast.update(id,
                         {
@@ -131,11 +133,11 @@ export const AuthProvider = ({ children }) => {
                     localStorage.setItem("encodedToken", data.encodedToken);
                     setUserData(data.createdUser)
                     setIsLoggedIn(true);
-                    navigate(location?.state?.from?.pathname);
+                    // navigate(location?.state?.from?.pathname);
                     setShowLoading(false)
                     setUserName(data.createdUser.username)
                     toast.success(`Successfully Signed Up ${signUpCreds.username}`);
-
+                    navigate("/")
                     return (true)
                 } else {
                     toast.error("Some error Occured");
