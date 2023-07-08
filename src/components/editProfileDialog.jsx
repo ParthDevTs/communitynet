@@ -65,8 +65,8 @@ function EditProfileDialog({ profileData }) {
     return (
         <div className="absolute  rounded-lg top-0 left-0 w-full h-full z-10 backdrop-filter backdrop-blur-lg flex items-center justify-center">
             <button onClick={() => setOpenEditProfile(false)} className="absolute right-[2%] top-[3%]">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
             <div className="edit__profile__box flex flex-col gap-4 items-center justify-evenly h-full py-6">

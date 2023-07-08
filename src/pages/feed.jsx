@@ -13,6 +13,8 @@ import Lottie from "lottie-react";
 
 export const Feed = () => {
 
+    document.title = "Community Net - Home";
+
 
     const { allPosts, showPostLoading } = usePostContext();
     const { userData } = useAuthContext();

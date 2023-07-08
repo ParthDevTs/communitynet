@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Navbar from '../components/Navbar';
 import LeftSIdeBar from '../components/LeftSIdeBar';
 import Follow from '../components/follow';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useAuthContext } from '../context/AuthContext';
 import { Post } from '../components/post';
 import { usePostContext } from '../context/postContext';
@@ -10,8 +10,9 @@ import EditProfileDialog from '../components/editProfileDialog';
 import no_data_found from "../assets/no_data_found.json";
 import Lottie from "lottie-react";
 function Profile() {
+
     const { userID } = useParams()
-    const navigate = useNavigate()
+
 
 
     const { getProfileDataFromParams,
@@ -33,9 +34,9 @@ function Profile() {
 
     const followHandler = () => {
         if (findUserinFollowList) {
-            followUser(profileData._id)
+            followUser(profileData?._id)
         } else {
-            unFollow(profileData._id)
+            unFollow(profileData?._id)
         }
     }
 
@@ -45,14 +46,15 @@ function Profile() {
     }
 
 
+
     useEffect(getUserData
         // eslint-disable-next-line
         , [userID])
 
     useEffect(() => {
-        if (!profileData) { navigate("/") }
+        document.title = `Community Net - ${profileData ? profileData?.username : "Profile"}`;
         // eslint-disable-next-line
-    }, [])
+    }, [profileData])
 
     useEffect(() => {
         if (userID) { setCurrentUserProfileId(userID) }

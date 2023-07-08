@@ -6,6 +6,7 @@ import LeftSIdeBar from '../components/LeftSIdeBar';
 import Follow from '../components/follow';
 
 function Explore() {
+    document.title = `Community Net - Explore`;
 
     const { allPosts } = usePostContext();
 

@@ -9,7 +9,7 @@ import no_data_found from "../assets/no_data_found.json";
 function Bookmarks() {
 
     const { bookmarkedPosts, setBookmarkedPosts } = usePostContext()
-
+    document.title = `Community Net - BookMarks`;
 
     useEffect(() => {
         const getAllbookmarks = async () => {

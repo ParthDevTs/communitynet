@@ -8,7 +8,7 @@ import Follow from '../components/follow';
 
 
 function PostView() {
-
+    document.title = "Community Net - Post";
 
 
     const { postId } = useParams();
