@@ -131,7 +131,7 @@ export const posts = [
     username: "chaabi_kahan",
     createdAt: formatDate(),
     updatedAt: formatDate(),
-    image: "https://media.tenor.com/KZi7ysyKL4cAAAAS/manoj-bajpai-gangs-of-wasseypur.gif"
+    image: "https://media.tenor.com/KZi7ysyKL4cAAAAC/manoj-bajpai-gangs-of-wasseypur.gif"
   },
   {
     _id: uuid(),
