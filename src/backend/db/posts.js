@@ -80,7 +80,7 @@ export const posts = [
   {
     _id: uuid(),
     content:
-      "i am groooot. i.. am grooot i am grooot!!!!",
+      "i am groooot? I AM GROOT!!",
     likes: {
       likeCount: 5,
       likedBy: [],
@@ -131,12 +131,12 @@ export const posts = [
     username: "chaabi_kahan",
     createdAt: formatDate(),
     updatedAt: formatDate(),
-    image: "https://media.tenor.com/KZi7ysyKL4cAAAAC/manoj-bajpai-gangs-of-wasseypur.gif"
+    image: "https://pbs.twimg.com/media/DiNq0NnXUAAdubj?format=jpg"
   },
   {
     _id: uuid(),
     content:
-      "With the BOis",
+      "With the Boisss",
     likes: {
       likeCount: 30,
       likedBy: [],
