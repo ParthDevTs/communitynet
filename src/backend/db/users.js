@@ -16,7 +16,7 @@ export const users = [
     password: "adarshBalika123",
     createdAt: formatDate(),
     updatedAt: formatDate(),
-    imgUrl: user__placeholer,
+    imgUrl: "https://w7.pngwing.com/pngs/129/292/png-transparent-female-avatar-girl-face-woman-user-flat-classy-users-icon.png",
     following: [],
     bio: "",
     url: "",
@@ -33,7 +33,7 @@ export const users = [
     imgUrl: parth__img,
     following: [],
     bio: "Bio? Nahi Li Maine",
-    url: "https://djikstracommerce.netlify.app/",
+    url: "https://www.linkedin.com/in/parth-kathuria-4b0856177/",
     profile__bg: "poly"
   },
   {
@@ -86,7 +86,7 @@ export const users = [
     password: "parth",
     createdAt: formatDate(),
     updatedAt: formatDate(),
-    imgUrl: user__placeholer,
+    imgUrl: "https://w7.pngwing.com/pngs/129/292/png-transparent-female-avatar-girl-face-woman-user-flat-classy-users-icon.png",
     following: [],
     bio: "",
     url: "",
@@ -96,14 +96,14 @@ export const users = [
     _id: uuid(),
     firstName: "Sardar",
     lastName: "Khan",
-    username: "chaabi_kahan_hai",
+    username: "chaabi_kahan",
     password: "parth",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     imgUrl: "https://qph.cf2.quoracdn.net/main-qimg-784a90c8853e3ce71e96e7189b887d2c-lq",
     following: [],
     bio: "Chaabi Kahan hai?",
-    url: "https://play.google.com/store/apps/details?id=net.froemling.bombsquad&hl=en&gl=US",
+    url: "https://en.wikipedia.org/wiki/Gangs_of_Wasseypur_%E2%80%93_Part_1",
     profile__bg: "wave"
   }
 ];
