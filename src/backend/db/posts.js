@@ -128,7 +128,7 @@ export const posts = [
       likedBy: [],
       dislikedBy: [],
     },
-    username: "chaabi_kahan",
+    username: "sardar_khan",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     image: "https://pbs.twimg.com/media/DiNq0NnXUAAdubj?format=jpg"
@@ -142,7 +142,7 @@ export const posts = [
       likedBy: [],
       dislikedBy: [],
     },
-    username: "chaabi_kahan",
+    username: "sardar_khan",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     image: "https://www.scrolldroll.com/wp-content/uploads/2020/08/Sardar-Khan-Bike-Scene-Gangs-Of-Wasseypur-Memes-750x430.jpg"

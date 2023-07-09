@@ -26,8 +26,8 @@ function PostDelDropDown({ postId, post }) {
 
 
             {showDrpDwn && (
-                <div className="bg-slate-100 box-border border px-4 bg-opacity-5 absolute top-[40px] backdrop-filter backdrop-blur-xl shadow-lg w-[12rem]  flex flex-col gap-6 rounded-sm right-3 py-4 ">
-                    <button onClick={deletePostHandler} className="del__button py-2 text-slate-600 flex px-4  items-center justify-start w-full hover:bg-opacity-100  text-sm hover:bg-slate-200 rounded-md">
+                <div className="bg-white  box-border border  absolute top-[40px] backdrop-filter backdrop-blur-xl shadow-lg w-[12rem]  flex flex-col  rounded-sm right-3 py-2 ">
+                    <button onClick={deletePostHandler} className="del__button py-2 text-slate-600 flex px-4  items-center justify-start w-full   text-sm hover:bg-slate-100 ">
                         <p className=" drop-shadow-lg">Delete Post</p>
                         <div className="spacer flex-grow"></div>
                         <span className=" drop-shadow-lg">
@@ -36,7 +36,7 @@ function PostDelDropDown({ postId, post }) {
                             </svg>
                         </span>
                     </button>
-                    <button onClick={editPostHandler} className="edit__button py-2 px-4 text-slate-600 flex  items-center justify-center w-full text-sm hover:bg-slate-200 hover:bg-opacity-100 rounded-md">
+                    <button onClick={editPostHandler} className="edit__button py-2 px-4 text-slate-600 flex  items-center justify-center w-full text-sm hover:bg-slate-100 ">
                         <p className=" drop-shadow-lg">Edit Post</p>
                         <div className="spacer flex-grow"></div>
                         <span className=" drop-shadow-lg">

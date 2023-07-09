@@ -125,7 +125,7 @@ export const PostProvider = ({ children }) => {
 
 
     const followUser = async (userId) => {
-
+        const id = toast.loading("Following...")
         const header = {
             authorization: localStorage.getItem("encodedToken"),
         };
@@ -136,17 +136,34 @@ export const PostProvider = ({ children }) => {
             .then(res => res.json())
             .then(data => {
                 setUserGlobal(data.user);
-                toast.success(`Following @${data.followUser.username}`, {
-                    icon: (({ theme, type }) => <img className="rounded-full" src={data.followUser.imgUrl} alt={data.followUser.username}></img>)
-                })
 
+                toast.update(id, {
+                    render: `Following @${data.followUser.username}`,
+                    type: "success",
+                    icon: (({ theme, type }) =>
+                        <img className="rounded-full" src={data.followUser.imgUrl} alt={data.followUser.username} />),
+                    isLoading: false,
+                    autoClose: true,
+                    closeOnClick: true,
+                    closeButton: "Close"
+                });
                 getProfileDataFromParams(currentUserProfileId)
             })
-            .catch(error => console.error(error))
+            .catch(error => {
+                console.error(error);
+                toast.update(id, {
+                    render: "Some Error Occurred",
+                    type: "error",
+                    isLoading: false,
+                    autoClose: true,
+                    closeOnClick: true,
+                    closeButton: "Close"
+                });
+            })
     }
 
     const unFollow = async (userId) => {
-
+        const id = toast.loading("UnFollowing...")
         const header = {
             authorization: localStorage.getItem("encodedToken"),
         };
@@ -157,14 +174,32 @@ export const PostProvider = ({ children }) => {
             .then(res => res.json())
             .then(data => {
                 setUserGlobal(data.user);
-                toast.info(`UnFollowed @${data.followUser.username}`, {
-                    icon: (({ theme, type }) => <img className="rounded-full" src={data.followUser.imgUrl} alt={data.followUser.username}></img>)
-                })
+
+                toast.update(id, {
+                    render: `UnFollowed @${data.followUser.username}`,
+                    type: "info",
+                    icon: (({ theme, type }) =>
+                        <img className="rounded-full" src={data.followUser.imgUrl} alt={data.followUser.username} />),
+                    isLoading: false,
+                    autoClose: true,
+                    closeOnClick: true,
+                    closeButton: "Close"
+                });
 
                 getProfileDataFromParams(currentUserProfileId)
 
             })
-            .catch(error => console.error(error))
+            .catch(error => {
+                console.error(error);
+                toast.update(id, {
+                    render: "Some Error Occurred",
+                    type: "error",
+                    isLoading: false,
+                    autoClose: true,
+                    closeOnClick: true,
+                    closeButton: "Close"
+                });
+            })
     }
 
     const bookmarkpost = async (postId) => {
@@ -262,7 +297,8 @@ export const PostProvider = ({ children }) => {
             authorization: localStorage.getItem("encodedToken"),
         };
         const postData = values
-        setShowPostLoading(true)
+
+        const id = toast.loading("Editing in Progress...")
         await fetch(`/api/posts/edit/${postId}`, {
             method: "POST",
             headers: header,
@@ -270,13 +306,30 @@ export const PostProvider = ({ children }) => {
         })
             .then(res => res.json())
             .then(data => {
-
                 setAllPosts(data.posts);
                 setAllUserPOsts(data.posts.filter(post => findUserExistsinLiked(post.likes.likedBy)))
-                setShowPostLoading(false)
+                toast.update(id, {
+                    render: "Post Updated",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: true,
+                    closeOnClick: true,
+                    closeButton: "Close"
+                });
                 return true
             })
-            .catch(error => { console.error(error); setShowPostLoading(false); })
+            .catch(error => {
+                console.error(error);
+                toast.update(id, {
+                    render: "Some Error Occurred",
+                    type: "error",
+                    isLoading: false,
+                    autoClose: true,
+                    closeOnClick: true,
+                    closeButton: "Close"
+                });
+            })
+
     }
 
     useEffect(() => {

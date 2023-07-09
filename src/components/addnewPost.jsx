@@ -11,6 +11,7 @@ function AddNewPost() {
         setAddNewPostMode } = usePostContext();
 
     const imageRef = useRef()
+    const closRef = useRef()
     const imageClickHandler = () => {
         imageRef.current.click()
     }
@@ -74,7 +75,8 @@ function AddNewPost() {
         }
     })
 
-    const handleClose = () => {
+    const handleClose = (event) => {
+        event.stopPropagation()
         setShowNewPost(false)
         setNewImgUrl()
         setAddNewPostMode("EDIT__POST")
@@ -97,15 +99,18 @@ function AddNewPost() {
         // eslint-disable-next-line
         , [])
 
-
+    const handlerParentCLick = (event) => {
+        closRef.current.click()
+        event.stopPropagation()
+    }
     return (
-        <div className="z-10 absolute  rounded-lg top-0 overflow-hidden left-0 w-full h-full backdrop-filter backdrop-blur-lg flex items-start py-[2rem] justify-center">
-            <button onClick={handleClose} className="absolute right-[2%] top-[3%]">
+        <div onClick={handlerParentCLick} className="z-10 absolute  rounded-lg top-0 overflow-hidden left-0 w-full h-full backdrop-filter backdrop-blur-lg flex items-start py-[2rem] justify-center">
+            <button ref={closRef} onClick={handleClose} className="absolute right-[2%] top-[3%]">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
-            <form onSubmit={formik.handleSubmit} onReset={formik.handleReset}>
+            <form onClick={(e) => e.stopPropagation()} onSubmit={formik.handleSubmit} onReset={formik.handleReset}>
                 <div className="add__new__post__box w-[50rem] max-h-[80%] shadow-lg  bg-white flex flex-col items-center justify-center gap-[0.69rem] px-[1.44rem] py-[1.06rem]">
 
                     <textarea

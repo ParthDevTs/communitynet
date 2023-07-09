@@ -76,7 +76,7 @@ export const users = [
     following: [],
     bio: "Line lambi kheecho.",
     url: "https://twitter.com/tanaypratap?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor",
-    profile__bg: "blob"
+    profile__bg: "poly"
   },
   {
     _id: uuid(),
@@ -96,13 +96,13 @@ export const users = [
     _id: uuid(),
     firstName: "Sardar",
     lastName: "Khan",
-    username: "chaabi_kahan",
+    username: "sardar_khan",
     password: "parth",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     imgUrl: "https://qph.cf2.quoracdn.net/main-qimg-784a90c8853e3ce71e96e7189b887d2c-lq",
     following: [],
-    bio: "Chaabi Kahan hai?",
+    bio: "Chaabi Kahan hai Brother? Kidhar daali hai?",
     url: "https://twitter.com/wasseypurdon?lang=es",
     profile__bg: "wave"
   }

@@ -70,11 +70,11 @@ function Profile() {
             case "wave":
                 return "bg-no-repeat bg-bottom  bg-profile-wave"
             case "blob":
-                return "bg-no-repeat bg-center bg-cover bg-profile-blob"
+                return "bg-no-repeat  bg-center bg-cover  bg-profile-blob"
             case "poly":
                 return "bg-no-repeat bg-center bg-cover bg-profile-poly"
             default:
-                return "bg-no-repeat bg-center bg-cover bg-profile-blob"
+                return "bg-no-repeat  bg-center bg-cover bg-profile-blob"
         }
     }
 
