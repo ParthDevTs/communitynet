@@ -141,7 +141,7 @@ export const PostProvider = ({ children }) => {
                     render: `Following @${data.followUser.username}`,
                     type: "success",
                     icon: (({ theme, type }) =>
-                        <img className="rounded-full" src={data.followUser.imgUrl} alt={data.followUser.username} />),
+                        <img className="rounded-full object-center object-cover" src={data.followUser.imgUrl} alt={data.followUser.username} />),
                     isLoading: false,
                     autoClose: true,
                     closeOnClick: true,
@@ -179,7 +179,7 @@ export const PostProvider = ({ children }) => {
                     render: `UnFollowed @${data.followUser.username}`,
                     type: "info",
                     icon: (({ theme, type }) =>
-                        <img className="rounded-full" src={data.followUser.imgUrl} alt={data.followUser.username} />),
+                        <img className="rounded-full object-center object-cover" src={data.followUser.imgUrl} alt={data.followUser.username} />),
                     isLoading: false,
                     autoClose: true,
                     closeOnClick: true,

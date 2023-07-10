@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useAuthContext } from '../context/AuthContext'
 import { useFormik } from "formik"
 import * as Yup from "yup";
@@ -11,13 +11,17 @@ function EditProfileDialog({ profileData }) {
     const { bio, url, profile__bg, imgUrl } = profileData
     const [newImgUrl, setNewImgUrl] = useState(imgUrl)
     // const [imgUrlValue, setimgUrlValue] = useState(null)
+    const imageRef = useRef()
 
-    const { setOpenEditProfile, editProfile } = useAuthContext();
+    const { setOpenEditProfile, editProfile, stockAvatarImageArray, bg__options } = useAuthContext();
     const editInitialValues = {
         bio: bio,
         url: url,
         profile__bg: profile__bg,
 
+    }
+    const setAvatarImage = (image) => {
+        setNewImgUrl(image)
     }
 
     const changetoBase64 = (e) => {
@@ -49,6 +53,9 @@ function EditProfileDialog({ profileData }) {
                 setNewImgUrl("")
             }
 
+        },
+        onreset: () => {
+            setNewImgUrl(profileData.imgUrl)
         }
     })
 
@@ -58,7 +65,6 @@ function EditProfileDialog({ profileData }) {
         // eslint-disable-next-line
     }, [])
 
-    const bg__options = ["wave", "blob", "poly"]
 
 
 
@@ -69,19 +75,19 @@ function EditProfileDialog({ profileData }) {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
-            <div className="edit__profile__box flex flex-col gap-4 items-center justify-evenly h-full py-6">
+            <div className="edit__profile__box flex flex-col gap-2 items-center justify-evenly h-full py-2 w-full">
                 <div className="header">
                     <h1 className="text-4xl text-white bg-black/20 px-4 py-2 rounded-lg">Edit Profile</h1>
                 </div>
                 <form
                     onSubmit={formik.handleSubmit}
                     onReset={formik.handleReset}
-                    className="flex rounded-lg overflow-y-auto text-xs overflow-x-hidden bg-white/40 px-8 2xl:text-sm py-6 gap-2 flex-col items-stretch justify-evenly h-full w-[80%] 2xl:w-full backdrop-filter backdrop-blur-md">
+                    className="flex rounded-lg overflow-y-auto text-xs overflow-x-hidden bg-white/60 px-8 2xl:text-sm py-4 gap-2 flex-col items-stretch justify-between h-full w-[90%] 2xl:w-full backdrop-filter backdrop-blur-md">
 
                     <div className="form_control justify-between  grid grid-cols-4 items-center gap-4 ">
-                        <label htmlFor="bio">Edit Bio</label>
+                        <label htmlFor="bio" className="font-semibold">Edit Bio</label>
                         <textarea
-                            className="w-full h-[5rem]  caret-pink-500 disabled:bg-#0000003d  bg-transparent border-current border-t-0 border-l-0 border-r-0 border-b col-span-3 text-[#A0616A] text-[0.75rem] font-[700] px-[0.69rem] py-[0.63rem]"
+                            className="w-full h-[3rem]  caret-pink-500 disabled:bg-#0000003d  bg-transparent border-current border-t-0 border-l-0 border-r-0 border-b col-span-3 text-[#A0616A] text-[0.75rem] font-[700] px-[0.69rem] py-[0.63rem]"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.bio}
@@ -92,7 +98,7 @@ function EditProfileDialog({ profileData }) {
                         {formik.errors.bio && formik.touched.bio ? <p className="text-red-700 text-xs font-bold">{formik.errors.bio}</p> : null}
                     </div>
                     <div className="form_control justify-between grid grid-cols-4 items-center gap-4 ">
-                        <label htmlFor="url">Link</label>
+                        <label htmlFor="url" className="font-semibold">Link</label>
                         <input
                             className="w-full h-[2.1875rem]  caret-pink-500 disabled:bg-#0000003d bg-transparent border-current border-t-0 border-l-0 border-r-0 border-b  col-span-3 text-[#A0616A] text-[0.75rem] font-[700] px-[0.69rem] py-[0.63rem]"
                             onChange={formik.handleChange}
@@ -105,9 +111,9 @@ function EditProfileDialog({ profileData }) {
                     </div>
 
                     <div className="form_control justify-between grid grid-cols-4 items-center gap-4 ">
-                        <label htmlFor="profile__bg">Profile Background</label>
+                        <label htmlFor="profile__bg" className="font-semibold">Background</label>
                         <select
-                            className="w-full font-sm rounded capitalize bg-transparent border-transparent  caret-pink-500 disabled:bg-#0000003d col-span-3 text-[#A0616A] text-[0.75rem] font-[700] px-[0.69rem] py-[0.63rem]"
+                            className=" font-sm rounded capitalize active:border-none bg-transparent border-none  caret-pink-500 disabled:bg-#0000003d col-span-3 text-[#A0616A] text-[0.75rem] font-[700] px-[0.69rem] py-[0.63rem]"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.profile__bg}
@@ -115,34 +121,65 @@ function EditProfileDialog({ profileData }) {
                             name="profile__bg"
                             id="profile__bg"
                         >
-                            <option disabled className="bg-slate-200 text-slate-500 ">Please Choose a Background</option>
+                            <option disabled value="" className="bg-slate-200 text-slate-500 ">Please Choose a Background</option>
                             {bg__options.map((option, index) => {
-                                return <option value={option} className={` px-4 py-2 text-sm capitalize ${profileData.profile__bg === option ? "bg-slate-500/40" : "bg-white/40"}`} key={index}>{option}</option>
+                                return <option
+                                    value={option.name}
+                                    className={`text-sm capitalize ${profileData.profile__bg === option.name ? "bg-slate-500/40" : "bg-white/40"}`}
+                                    key={index}>
+                                    {option.name}
+                                    {/* <img src={option.url} alt={option.name} /> */}
+                                </option>
                             })}
                         </select>
                         {formik.errors.url && formik.touched.url ? <p className="text-red-700 text-xs font-bold">{formik.errors.url}</p> : null}
                     </div>
 
-                    <div className="form_control justify-between grid grid-cols-4 items-center gap-4 ">
-                        <label htmlFor="imgUrl">Update Profile Picture</label>
+                    <div className="form_control justify-between grid grid-cols-1 items-center gap-1">
+                        <label htmlFor="imgUrl" className="font-semibold">Update Profile Picture</label>
+                        <ul className="imagesContainer__editProfile scroll-m-5 py-2 relative grid grid-cols-6 overflow-x-scroll h-[full] justify-start gap-[8rem] overflow-y-hidden rounded">
+                            <li
+                                onClick={() => imageRef.current.click()}
+                                className="h-[7rem] text-white  hover:font-bold w-[7rem] cursor-pointer relative border-slate-600 border-dashed border rounded-lg  bg-black/20 px-3 pt-3 pb-5">
+                                <img src={newImgUrl}
+                                    className="h-full w-full object-cover object-center rounded-lg" alt="newly added" />
+                                <p className="text-[0.6rem] bottom-0 left-0 w-full uppercase text-center absolute ">Upload Picture</p>
+                            </li>
+                            {stockAvatarImageArray.map((image, index) => {
+                                return (
+                                    <li
+                                        onClick={() => setAvatarImage(image)}
+                                        key={index}
+                                        className={`${newImgUrl === image ? "border-teal-500 border-2" : "border-slate-600 border"} 
+                                                relative cursor-pointer h-[7rem]  w-[7rem] border-slate-600  border-soild rounded-lg
+                                                // ${index % 2 === 0 ? " snap-end" : ""}   bg-black/20 p-3`}>
+                                        <img
+                                            loading='lazy'
+                                            src={image}
+                                            className="h-full object-cover object-center rounded-lg"
+                                            alt={index} />
+                                    </li>)
+                            })}
+                        </ul>
+
                         <input onChange={(event) =>
                             changetoBase64(event)}
-                            onBlur={formik.handleBlur}
+                            ref={imageRef}
                             accept="image/*"
-                            className="col-span-2 bg-transparent px-2  text-[#A0616A]  border-transparent"
+                            className=" hidden text-[#A0616A] pointer-events-none"
                             type="file"
                             name="imgUrl"
                             id="imgUrl" />
-                        {newImgUrl !== imgUrl ? <img src={newImgUrl} className="max-h-8 max-w-8" alt="profile" /> : ""}
+                        {/* {newImgUrl !== imgUrl ? <img src={newImgUrl} className="max-h-8 max-w-8" alt="profile" /> : ""} */}
                     </div>
                     <footer className="profile__edit__footer flex gap-4 mt-4 items-center justify-center">
                         <button
                             type="submit"
-                            className=" bg-[#FFB8B8] text-xs transition-transform text-white font-bold   hover:scale-105 shadow-[0px_10px_12px_-6px_#6c63FF] px-3 py-2 w-[8rem]">
+                            className=" bg-[#FFB8B8] hover:bg-[#f0afaf] text-xs rounded transition-all text-white font-bold   hover:scale-105 shadow-lg shadow-[#FFB8B8CC] px-3 py-2 w-[8rem]">
                             Save Changes
                         </button>
                         <button
-                            className=" bg-red-600 hover:bg-red-900 text-xs transition-transform text-white font-bold   hover:scale-105 shadow-[0px_10px_12px_-6px_#6c63FF] px-3 py-2 w-[8rem]"
+                            className=" bg-red-600 hover:bg-red-700 text-xs rounded transition-all text-white font-bold   hover:scale-105 shadow-lg shadow-red-500 px-3 py-2 w-[8rem]"
                             type="reset">Reset</button>
                         <div className="spacer flex-grow"></div>
                     </footer>

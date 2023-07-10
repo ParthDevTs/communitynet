@@ -12,7 +12,7 @@
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #ffb8b8b3;
-  box-shadow: 0 6px 8px -3px black;
+  /* box-shadow: 0 6px 8px -3px black; */
 }
 
 /* Handle on hover */
@@ -35,4 +35,13 @@ input:-ms-input-placeholder {
 
 input::placeholder {
   color: rgba(128, 128, 128, 0.459);
+}
+
+.imagesContainer__editProfile {
+  scroll-snap-type: x mandatory;
+  scroll-padding: 2rem;
+}
+
+.imagesContainer__editProfile::-webkit-scrollbar {
+  height: 5px;
 }

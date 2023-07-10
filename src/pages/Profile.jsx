@@ -92,7 +92,7 @@ function Profile() {
                 <LeftSIdeBar />
                 <div className=" z-0 posts 2xl:min-w-[52.5rem] lg:w-[42rem] h-[calc(100vh-5.75rem)]  bg-[#f1f1f1] flex-grow overflow-y-auto flex flex-col items-center justify-start  gap-8">
                     {profileData?.username && <>
-                        <div className={`user__profile ${selectbg()}   relative px-[2.3rem] gap-4 py-[1.12rem] shadow-[0px_4px_8px_-4px_rgba(0,0,0,0.25)] rounded-[10px] bg-white flex flex-col justiy-center sm:w-[20rem] lg:w-[30rem] xl:w-[40rem] 2xl:w-[50rem]`}>
+                        <div className={`user__profile ${selectbg()} min-h-[30rem]  relative px-[2.3rem] gap-4 py-[1.12rem] shadow-[0px_4px_8px_-4px_rgba(0,0,0,0.25)] rounded-[10px] bg-white flex flex-col justiy-center sm:w-[20rem] lg:w-[30rem] xl:w-[40rem] 2xl:w-[50rem]`}>
 
                             {userData?.username === profileData.username &&
                                 <button onClick={() => setOpenEditProfile(true)} className="edit__button absolute rounded-sm hover:bg-[#4e49bd] top-[5%] text-white w-[5rem] h-[2rem] bg-[#6C63FF] shadow-[0px_10px_20px_-10px_#6C63FF] left-[3%] ">EDIT</button>}

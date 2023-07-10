@@ -1,6 +1,15 @@
 import { createContext, useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import female_1 from "../assets/avatar_images/female-1.jpg"
+import female_2 from "../assets/avatar_images/female-2.jpg"
+import male_1 from "../assets/avatar_images/male-1.jpg"
+import male_2 from "../assets/avatar_images/male-2.jpg"
+import male_3 from "../assets/avatar_images/male-3.jpg"
+import profile__blob from "../assets/profile__blob.svg"
+import profile__poly from "../assets/profile__poly.svg"
+import profile__wave from "../assets/profile__wave.svg"
+
 
 
 
@@ -19,6 +28,18 @@ export const AuthProvider = ({ children }) => {
     const authToken = localStorage.getItem("encodedToken");
     const [currentUserProfileId, setCurrentUserProfileId] = useState("")
     const [openEditProfile, setOpenEditProfile] = useState(false);
+
+
+    const stockAvatarImageArray = [
+        female_1, male_1, female_2, male_2, male_3
+    ]
+
+    const bg__options = [
+        { name: "wave", url: profile__wave },
+        { name: "blob", url: profile__blob },
+        { name: "poly", url: profile__poly }
+    ]
+
 
 
     const guestLogin = async () => {
@@ -224,7 +245,30 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ editProfile, openEditProfile, setOpenEditProfile, setShowLoading, currentUserProfileId, setCurrentUserProfileId, profileData, setProfileData, getProfileDataFromParams, setUserData, showLoading, userData, userName, isLoggedIn, setIsLoggedIn, guestLogin, logOut, loginAuth, signUp, authToken }}>
+        <AuthContext.Provider value={{
+            editProfile,
+            openEditProfile,
+            setOpenEditProfile,
+            setShowLoading,
+            currentUserProfileId,
+            setCurrentUserProfileId,
+            profileData,
+            setProfileData,
+            getProfileDataFromParams,
+            setUserData,
+            showLoading,
+            userData,
+            userName,
+            isLoggedIn,
+            setIsLoggedIn,
+            guestLogin,
+            logOut,
+            loginAuth,
+            signUp,
+            authToken,
+            stockAvatarImageArray,
+            bg__options
+        }}>
             {children}
         </AuthContext.Provider>
     );
