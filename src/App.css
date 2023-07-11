@@ -39,9 +39,22 @@ input::placeholder {
 
 .imagesContainer__editProfile {
   scroll-snap-type: x mandatory;
-  scroll-padding: 2rem;
+  scroll-padding: 4rem;
 }
 
 .imagesContainer__editProfile::-webkit-scrollbar {
-  height: 5px;
+  height: 8px;
+}
+
+.imagesContainer__editProfile::-webkit-scrollbar-track {
+  background: transparent;
+}
+.imagesContainer__editProfile::-webkit-scrollbar-thumb {
+  background: #ff5757;
+  /* box-shadow: 0 6px 8px -3px black; */
+}
+.imagesContainer__editProfile::-webkit-scrollbar-thumb:hover {
+  background: #ff0e0e;
+  /* box-shadow: 0 6px 8px -3px black; */
+  border-radius: 5px;
 }

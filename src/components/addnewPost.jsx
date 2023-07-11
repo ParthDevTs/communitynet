@@ -127,12 +127,6 @@ function AddNewPost() {
                     </textarea>
                     {formik.errors.content && formik.touched.content ? <p className="text-red-400 text-xs text-left  w-full">{formik.errors.content}</p> : null}
 
-                    {newImgUrl &&
-                        <img
-                            className=" object-center object-contain lg:h-[20rem]  2xl:max-h-[540px] rounded-lg"
-                            src={newImgUrl}
-                            alt='new Post' />
-                    }
 
 
                     <footer className="new__post__footer flex relative  items-center w-full gap-2" >
@@ -154,9 +148,11 @@ function AddNewPost() {
                         </div>
                         {showEmoji && <div className="emoji__container absolute left-[50px] top-[70%]">
                             <EmojiPicker
-                                searchDisabled={true}
-                                skinTonesDisabled={true}
-                                lazyLoadEmojis={true} onEmojiClick={onEmojiClick} height={250} width={300} />
+                                searchDisabled={false}
+                                skinTonesDisabled={false}
+                                lazyLoadEmojis={true}
+                                onEmojiClick={onEmojiClick}
+                                theme='dark' />
 
                         </div>}
                         <div className="spacer flex-grow "></div>
@@ -172,6 +168,13 @@ function AddNewPost() {
                             Reset
                         </button>
                     </footer>
+                    {newImgUrl &&
+                        <img
+                            className=" object-center object-contain lg:h-[20rem]  2xl:max-h-[540px] rounded-lg"
+                            src={newImgUrl}
+                            alt='new Post' />
+                    }
+
                 </div>
             </form>
         </div>

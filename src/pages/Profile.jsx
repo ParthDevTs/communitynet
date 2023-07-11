@@ -73,6 +73,12 @@ function Profile() {
                 return "bg-no-repeat  bg-center bg-cover  bg-profile-blob"
             case "poly":
                 return "bg-no-repeat bg-center bg-cover bg-profile-poly"
+            case "wave2":
+                return "bg-no-repeat bg-center bg-cover bg-profile-wave2"
+            case "layered waves":
+                return "bg-no-repeat bg-center bg-cover bg-profile-layeredwaves"
+            case "layered peaks":
+                return "bg-no-repeat bg-center bg-cover bg-profile-layeredpeaks"
             default:
                 return "bg-no-repeat  bg-center bg-cover bg-profile-blob"
         }
@@ -117,16 +123,16 @@ function Profile() {
                             </div>
                             <div className="bottomInfo flex w-full gap-[3rem]">
                                 <div
-                                    className="bio  p-4 rounded-lg backdrop-blur-md  shadow-[0px_10px_20px_-10px_rgba(0,0,0,0.25)]  bg-[rgba(235,235,235,0.31)]">
+                                    className="bio  p-4 rounded-lg backdrop-blur-md  shadow-[0px_10px_20px_-10px_rgba(0,0,0,0.25)]  bg-[rgba(235,235,235,0.31)] hover:shadow-[5px_5px_20px_-10px_rgba(0,0,0,1),_inset_3px_3px_6px_3px_rgba(0,0,0,0.15)] hover:bg-white">
                                     <p
                                         className="2xl:w-[31rem] xl:w-[20rem] sm:w-[10rem] xl:text-sm lg:text-xs flex-wrap h-[7.4rem] tracking-tighter overflow-hidden break-words ">{bio ? bio : <span className="text-slate-400 font-mono capitalize">Bio Not Added</span>}</p>
                                 </div>
-                                <div className="profile__counts px-4 rounded-md backdrop-blur-md  shadow-[0px_10px_20px_-10px_rgba(0,0,0,0.45)]  bg-[rgba(1,1,1,0.35)] text-white  text-sm grid grid-cols-3 grid-rows-2 py-[1.7rem] w-full gap-x-[1.3rem] gap-y-[1.19rem] place-content-center items-center justify-center">
-                                    <p className="text-left col-span-2 text-white font-semibold uppercase">Followers</p>
-                                    <p className="text-right">{followers.length}</p>
+                                <div className="profile__counts px-4 rounded-lg transition-all shadow-[0px_10px_20px_-10px_rgba(0,0,0,0.25)]   backdrop-blur-md hover:shadow-[5px_5px_20px_-10px_rgba(0,0,0,1),_inset_3px_3px_6px_3px_rgba(0,0,0,0.15)] bg-[rgba(235,235,235,0.31)] hover:bg-white text-black  text-sm grid grid-cols-3 grid-rows-2 py-[1.7rem] w-full gap-x-[1.3rem] gap-y-[1.19rem] place-content-center items-center justify-center">
+                                    <p className="text-left col-span-2  font-semibold capitalize drop-shadow-lg">Followers</p>
+                                    <h1 className="text-right font-black drop-shadow-lg">{followers.length}</h1>
 
-                                    <p className="text-left col-span-2 text-white font-semibold uppercase ">Following</p>
-                                    <p className="text-right">{following.length}</p>
+                                    <p className="text-left col-span-2 font-semibold capitalize  drop-shadow-lg">Following</p>
+                                    <h1 className="text-right font-black drop-shadow-lg">{following.length}</h1>
                                 </div>
                             </div>
                         </div>

@@ -54,7 +54,7 @@ function EditProfileDialog({ profileData }) {
             }
 
         },
-        onreset: () => {
+        onReset: (values) => {
             setNewImgUrl(profileData.imgUrl)
         }
     })
@@ -75,15 +75,16 @@ function EditProfileDialog({ profileData }) {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
-            <div className="edit__profile__box flex flex-col gap-2 items-center justify-evenly h-full py-2 w-full">
-                <div className="header">
-                    <h1 className="text-4xl text-white bg-black/20 px-4 py-2 rounded-lg">Edit Profile</h1>
-                </div>
+            <div className="edit__profile__box flex flex-col items-center justify-evenly h-full py-4 w-full ">
+
                 <form
                     onSubmit={formik.handleSubmit}
                     onReset={formik.handleReset}
-                    className="flex rounded-lg overflow-y-auto text-xs overflow-x-hidden bg-white/60 px-8 2xl:text-sm py-4 gap-2 flex-col items-stretch justify-between h-full w-[90%] 2xl:w-full backdrop-filter backdrop-blur-md">
+                    className="flex rounded-lg overflow-y-auto text-xs overflow-x-hidden bg-white/60 px-8 2xl:text-sm py-4 gap-2 lg:py-3 flex-col items-stretch justify-between h-full w-[90%]  backdrop-filter backdrop-blur-md">
 
+                    <div className="header shadow-lg shadow-slate-600 bg-black  rounded-lg ">
+                        <h1 className="text-2xl text-white  px-4 py-2">Edit Profile</h1>
+                    </div>
                     <div className="form_control justify-between  grid grid-cols-4 items-center gap-4 ">
                         <label htmlFor="bio" className="font-semibold">Edit Bio</label>
                         <textarea
@@ -137,13 +138,16 @@ function EditProfileDialog({ profileData }) {
 
                     <div className="form_control justify-between grid grid-cols-1 items-center gap-1">
                         <label htmlFor="imgUrl" className="font-semibold">Update Profile Picture</label>
-                        <ul className="imagesContainer__editProfile scroll-m-5 py-2 relative grid grid-cols-6 overflow-x-scroll h-[full] justify-start gap-[8rem] overflow-y-hidden rounded">
+                        <ul className="imagesContainer__editProfile scroll-smooth scroll-m-5 py-2 relative grid grid-cols-7 overflow-x-scroll justify-start gap-[7.2rem] overflow-y-hidden rounded">
                             <li
                                 onClick={() => imageRef.current.click()}
                                 className="h-[7rem] text-white  hover:font-bold w-[7rem] cursor-pointer relative border-slate-600 border-dashed border rounded-lg  bg-black/20 px-3 pt-3 pb-5">
                                 <img src={newImgUrl}
                                     className="h-full w-full object-cover object-center rounded-lg" alt="newly added" />
-                                <p className="text-[0.6rem] bottom-0 left-0 w-full uppercase text-center absolute ">Upload Picture</p>
+                                <p className="text-[0.6rem] bottom-0  left-0 w-full uppercase text-center absolute ">Upload Picture</p>
+                            </li>
+                            <li className="flex items-center justify-center w-[7rem] snap-end">
+                                <p className="w-full text-center font-bold drop-shadow-md">OR</p>
                             </li>
                             {stockAvatarImageArray.map((image, index) => {
                                 return (
@@ -152,7 +156,7 @@ function EditProfileDialog({ profileData }) {
                                         key={index}
                                         className={`${newImgUrl === image ? "border-teal-500 border-2" : "border-slate-600 border"} 
                                                 relative cursor-pointer h-[7rem]  w-[7rem] border-slate-600  border-soild rounded-lg
-                                                // ${index % 2 === 0 ? " snap-end" : ""}   bg-black/20 p-3`}>
+                                                 ${index % 2 === 0 ? " snap-end" : ""}   bg-black/20 p-3`}>
                                         <img
                                             loading='lazy'
                                             src={image}

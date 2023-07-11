@@ -9,6 +9,9 @@ import male_3 from "../assets/avatar_images/male-3.jpg"
 import profile__blob from "../assets/profile__blob.svg"
 import profile__poly from "../assets/profile__poly.svg"
 import profile__wave from "../assets/profile__wave.svg"
+import profile__layeredPeaks from "../assets/profile__layeredpeaks.svg"
+import profile__layeredWaves from "../assets/profile__layeredwaves.svg"
+import profile__wave2 from "../assets/profile__wave2.svg"
 
 
 
@@ -37,7 +40,10 @@ export const AuthProvider = ({ children }) => {
     const bg__options = [
         { name: "wave", url: profile__wave },
         { name: "blob", url: profile__blob },
-        { name: "poly", url: profile__poly }
+        { name: "poly", url: profile__poly },
+        { name: "wave2", url: profile__wave2 },
+        { name: "layered waves", url: profile__layeredWaves },
+        { name: "layered peaks", url: profile__layeredPeaks },
     ]
 
 
