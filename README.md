@@ -13,7 +13,7 @@ This project was created with ReactJs and Mockbee.
   <li>Create a Post</li>
   <li>Like a post</li>
   <li>Edit & Delete Post</li>
-  <li>>User Profile</li
+  <li>User Profile</li
   <li>Add Avatar</li>
   <li>Add Bio</li>
   <li>Add Portfolio URL</li>
