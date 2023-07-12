@@ -123,11 +123,11 @@ function Profile() {
                             </div>
                             <div className="bottomInfo flex w-full gap-[3rem]">
                                 <div
-                                    className="bio  p-4 rounded-lg backdrop-blur-md  shadow-[0px_10px_20px_-10px_rgba(0,0,0,0.25)]  bg-[rgba(235,235,235,0.31)] hover:shadow-[5px_5px_20px_-10px_rgba(0,0,0,1),_inset_3px_3px_6px_3px_rgba(0,0,0,0.15)] hover:bg-white">
+                                    className="bio  p-4 rounded-lg backdrop-blur-md transition-all duration-100  shadow-[0px_10px_20px_-10px_rgba(0,0,0,0.25)]  bg-[rgba(235,235,235,0.31)] hover:bg-[rgba(235,235,235,0.50)] hover:backdrop-blur-lg">
                                     <p
                                         className="2xl:w-[31rem] xl:w-[20rem] sm:w-[10rem] xl:text-sm lg:text-xs flex-wrap h-[7.4rem] tracking-tighter overflow-hidden break-words ">{bio ? bio : <span className="text-slate-400 font-mono capitalize">Bio Not Added</span>}</p>
                                 </div>
-                                <div className="profile__counts px-4 rounded-lg transition-all shadow-[0px_10px_20px_-10px_rgba(0,0,0,0.25)]   backdrop-blur-md hover:shadow-[5px_5px_20px_-10px_rgba(0,0,0,1),_inset_3px_3px_6px_3px_rgba(0,0,0,0.15)] bg-[rgba(235,235,235,0.31)] hover:bg-white text-black  text-sm grid grid-cols-3 grid-rows-2 py-[1.7rem] w-full gap-x-[1.3rem] gap-y-[1.19rem] place-content-center items-center justify-center">
+                                <div className="profile__counts px-4 rounded-lg transition-all duration-100 shadow-[0px_10px_20px_-10px_rgba(0,0,0,0.25)]   backdrop-blur-md hover:backdrop-blur-lg hover:bg-[rgba(235,235,235,0.50)] bg-[rgba(235,235,235,0.31)] text-black  text-sm grid grid-cols-3 grid-rows-2 py-[1.7rem] w-full gap-x-[1.3rem] gap-y-[1.19rem] place-content-center items-center justify-center">
                                     <p className="text-left col-span-2  font-semibold capitalize drop-shadow-lg">Followers</p>
                                     <h1 className="text-right font-black drop-shadow-lg">{followers.length}</h1>
 

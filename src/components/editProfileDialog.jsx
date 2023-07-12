@@ -1,25 +1,26 @@
 import React, { useRef, useState } from 'react'
 import { useAuthContext } from '../context/AuthContext'
 import { useFormik } from "formik"
-import * as Yup from "yup";
+
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { editProfileSchema } from '../schemas/editProfileSchemas';
 
 
 
 function EditProfileDialog({ profileData }) {
     const { bio, url, profile__bg, imgUrl } = profileData
     const [newImgUrl, setNewImgUrl] = useState(imgUrl)
-    // const [imgUrlValue, setimgUrlValue] = useState(null)
     const imageRef = useRef()
-
     const { setOpenEditProfile, editProfile, stockAvatarImageArray, bg__options } = useAuthContext();
+
     const editInitialValues = {
         bio: bio,
         url: url,
         profile__bg: profile__bg,
 
     }
+
     const setAvatarImage = (image) => {
         setNewImgUrl(image)
     }
@@ -36,12 +37,6 @@ function EditProfileDialog({ profileData }) {
         }
     }
 
-
-    const editProfileSchema = Yup.object({
-        bio: Yup.string().max(256),
-        url: Yup.string(),
-        profile__bg: Yup.string()
-    });
     const formik = useFormik({
         initialValues: editInitialValues,
         validationSchema: editProfileSchema,
@@ -59,13 +54,10 @@ function EditProfileDialog({ profileData }) {
         }
     })
 
-
     useEffect(() => {
         formik.resetForm();
         // eslint-disable-next-line
     }, [])
-
-
 
 
     return (
@@ -159,6 +151,7 @@ function EditProfileDialog({ profileData }) {
                                                  ${index % 2 === 0 ? " snap-end" : ""}   bg-black/20 p-3`}>
                                         <img
                                             loading='lazy'
+                                            decoding='async'
                                             src={image}
                                             className="h-full object-cover object-center rounded-lg"
                                             alt={index} />

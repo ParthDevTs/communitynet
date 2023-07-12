@@ -10,7 +10,7 @@ export const Post = ({ post }) => {
     const navigate = useNavigate();
     const { likeaPost, findUserExistsinLiked, disLikedPost, bookmarkpost, removeBookMark, bookmarkedPosts, allUsers } = usePostContext()
     const { userData, isLoggedIn } = useAuthContext()
-    console.log(post)
+
     const { _id, content, likes: { likeCount, likedBy = [] }, username, createdAt } = post;
     const now = dayjs();
     const createdDateFormatted = dayjs(createdAt, "DD-MM-YYYY")

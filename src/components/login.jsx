@@ -4,7 +4,7 @@ import "./styles/loginstyles.css"
 import { useFormik } from "formik";
 import Lottie from "lottie-react";
 import influencer__svg from "../assets/insta__svg.json";
-import * as Yup from "yup";
+import { loginInitialValues, loginSchema, signUpInitialValues, signUpSchema } from "../schemas/loginSchemas";
 
 
 export const Login = () => {
@@ -12,45 +12,6 @@ export const Login = () => {
     const [loginFormMode, setLoginFormMode] = useState(true)
     const [showPass, setShowPass] = useState(false);
 
-    const loginInitialValues = {
-        username: "",
-        password: "",
-    }
-    const signUpInitialValues = {
-        username: "",
-        firstName: "",
-        lastName: "",
-        password: "",
-        confirm_password: "",
-    }
-
-    const loginSchema = Yup.object({
-        username: Yup
-            .string()
-            .min(5, "User ID must be atleast 5 Characters")
-            .required("User ID is required"),
-        password: Yup
-            .string()
-            .required("Please enter password")
-
-    });
-    const signUpSchema = Yup.object({
-        username: Yup
-            .string()
-            .min(6, "User ID must be atleast 6 Characters")
-            .max(10, "max character length 10")
-            .required("User ID is required")
-            .matches("^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$", "Please use Alphanumeric and Special Characters(. and _ only) for username"),
-        password: Yup
-            .string()
-            .required("Please enter password")
-            .min(3, "Password must be atleast 3 characters"),
-        firstName: Yup.string().required("Please enter first name"),
-        lastName: Yup.string().required("Please enter last name"),
-        confirm_password: Yup.string().oneOf([Yup.ref("password")], "Passwords do not match"),
-
-
-    })
     const signuphandler = (values) => {
         const res = signUp(values);
         if (res) {
@@ -58,7 +19,6 @@ export const Login = () => {
             formik.resetForm();
         }
     }
-
 
     const formik = useFormik({
         initialValues: loginFormMode ? loginInitialValues : signUpInitialValues,

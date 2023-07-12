@@ -42,12 +42,9 @@ export const PostProvider = ({ children }) => {
             .then(data => {
 
                 if (data.post) {
-
                     setSelectedPostData(data.post)
                     setShowPostLoading(false)
                     return true
-
-
                 } else {
                     toast.error("The Selected Post may not exist")
                     setShowPostLoading(false)
@@ -62,39 +59,103 @@ export const PostProvider = ({ children }) => {
     }
 
     const likeaPost = async (postId) => {
+        const id = toast.loading("Liking Post")
         if (!postId) {
-            toast("invalid request")
+            toast.error("invalid request")
         }
         const header = {
             authorization: localStorage.getItem("encodedToken"),
         };
-        setShowPostLoading(true)
-
         await fetch(`/api/posts/like/${postId}`, {
             method: "POST",
             headers: header,
         })
             .then(res => res.json())
-            .then(data => { setAllPosts(data.posts); setShowPostLoading(false); toast.dark("Liked Post") })
-            .catch(error => { console.error(error); setShowPostLoading(false); })
+            .then(data => {
+                if (data.posts) {
+                    setAllPosts(data.posts);
+                    toast.update(id, {
+                        render: `Liked Post`,
+                        type: "success",
+                        isLoading: false,
+                        autoClose: true,
+                        closeOnClick: true,
+                        closeButton: "Close"
+                    });
+                } else {
+                    toast.update(id, {
+                        render: `Error while Liking`,
+                        type: "Error",
+                        isLoading: false,
+                        autoClose: true,
+                        closeOnClick: true,
+                        closeButton: "Close"
+                    });
+                }
+
+            })
+            .catch(error => {
+                console.error(error);
+                toast.update(id, {
+                    render: `Error While Liking`,
+                    type: "Error",
+                    isLoading: false,
+                    autoClose: true,
+                    closeOnClick: true,
+                    closeButton: "Close"
+                });
+            })
     }
     const disLikedPost = async (postId) => {
+        const id = toast.loading("Disliking Post")
         const header = {
             authorization: localStorage.getItem("encodedToken"),
         };
 
-        setShowPostLoading(true)
         await fetch(`/api/posts/dislike/${postId}`, {
             method: "POST",
             headers: header,
         })
             .then(res => res.json())
-            .then(data => { setAllPosts(data.posts); setShowPostLoading(false); toast.dark("Disliked Post") })
-            .catch(error => { console.error(error); setShowPostLoading(false); })
+            .then(data => {
+                if (data.posts) {
+                    setAllPosts(data.posts);
+
+                    toast.update(id, {
+                        render: `Disliked Post`,
+                        type: "info",
+                        isLoading: false,
+                        autoClose: true,
+                        closeOnClick: true,
+                        closeButton: "Close"
+                    });
+                } else {
+                    toast.update(id, {
+                        render: `Error while Disliking, try again later`,
+                        type: "Error",
+                        isLoading: false,
+                        autoClose: true,
+                        closeOnClick: true,
+                        closeButton: "Close"
+                    });
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                toast.update(id, {
+                    render: `Error while Disliking`,
+                    type: "Error",
+                    isLoading: false,
+                    autoClose: true,
+                    closeOnClick: true,
+                    closeButton: "Close"
+                });
+            })
     }
 
 
     const deletePost = async (postId) => {
+        const id = toast.loading("Deleting Post")
         const header = {
             authorization: localStorage.getItem("encodedToken"),
         };
@@ -106,10 +167,25 @@ export const PostProvider = ({ children }) => {
             .then(res => res.json())
             .then(data => {
                 if (data.posts) {
-                    setAllPosts(data.posts); toast.dark("Post Deleted")
+                    setAllPosts(data.posts);
+                    toast.update(id, {
+                        render: `Post Deleted`,
+                        type: "info",
+                        isLoading: false,
+                        autoClose: true,
+                        closeOnClick: true,
+                        closeButton: "Close"
+                    });
                 }
                 else {
-                    toast.error("Some Error Occurred, please try again later")
+                    toast.update(id, {
+                        render: `Error Occured while deleting, try again`,
+                        type: "error",
+                        isLoading: false,
+                        autoClose: true,
+                        closeOnClick: true,
+                        closeButton: "Close"
+                    });
                 }
 
             })
@@ -135,24 +211,36 @@ export const PostProvider = ({ children }) => {
         })
             .then(res => res.json())
             .then(data => {
-                setUserGlobal(data.user);
-
-                toast.update(id, {
-                    render: `Following @${data.followUser.username}`,
-                    type: "success",
-                    icon: (({ theme, type }) =>
-                        <img className="rounded-full object-center object-cover" src={data.followUser.imgUrl} alt={data.followUser.username} />),
-                    isLoading: false,
-                    autoClose: true,
-                    closeOnClick: true,
-                    closeButton: "Close"
-                });
-                getProfileDataFromParams(currentUserProfileId)
+                if (data.user) {
+                    setUserGlobal(data.user);
+                    toast.update(id, {
+                        render: `Following @${data.followUser.username}`,
+                        type: "success",
+                        icon: (({ theme, type }) =>
+                            <img className="rounded-full object-center object-cover" src={data.followUser.imgUrl} alt={data.followUser.username} />),
+                        isLoading: false,
+                        autoClose: true,
+                        closeOnClick: true,
+                        closeButton: "Close"
+                    });
+                    getProfileDataFromParams(currentUserProfileId)
+                } else {
+                    toast.update(id, {
+                        render: `error Occurred While following @${data.followUser.username}, try again`,
+                        type: "error",
+                        icon: (({ theme, type }) =>
+                            <img className="rounded-full object-center object-cover" src={data.followUser.imgUrl} alt={data.followUser.username} />),
+                        isLoading: false,
+                        autoClose: true,
+                        closeOnClick: true,
+                        closeButton: "Close"
+                    });
+                }
             })
             .catch(error => {
                 console.error(error);
                 toast.update(id, {
-                    render: "Some Error Occurred",
+                    render: "Some Error Occurred, try again later",
                     type: "error",
                     isLoading: false,
                     autoClose: true,
@@ -245,28 +333,41 @@ export const PostProvider = ({ children }) => {
         const header = {
             authorization: localStorage.getItem("encodedToken"),
         };
+        if (isLoggedIn) {
+            await fetch("/api/users/bookmark/", { headers: header })
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.bookmarks) { setBookmarkedPosts(data.bookmarks); }
+                    else {
+                        toast.error("Couldnt Bookmark, try again later")
+                    }
 
-        await fetch("/api/users/bookmark/", { headers: header })
-            .then((res) => res.json())
-            .then((data) => {
-
-                setBookmarkedPosts(data.bookmarks);
-            })
+                })
+        }
     }
 
     const getAllPosts = async () => {
-        await fetch("/api/posts")
-            .then((res) => res.json())
-            .then((data) => {
-                setAllPosts(data.posts);
-                setAllUserPOsts(data.posts.filter(post => findUserExistsinLiked(post.likes.likedBy)))
-            })
+        if (isLoggedIn) {
+            await fetch("/api/posts")
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.posts) {
+                        setAllPosts(data.posts);
+                        setAllUserPOsts(data.posts.filter(post => findUserExistsinLiked(post.likes.likedBy)))
+                    } else {
+                        toast.error("Get posts, try again later")
+                    }
+                })
+                .catch(error => console.error(error))
+        }
     }
     const getallusers = async () => {
-        await fetch(" /api/users")
-            .then(res => res.json())
-            .then(data => { setAllUsers(data.users); })
-            .catch(error => console.error(error))
+        if (isLoggedIn) {
+            await fetch(" /api/users")
+                .then(res => res.json())
+                .then(data => { setAllUsers(data.users); })
+                .catch(error => console.error(error))
+        }
     }
 
     const addNewPost = async (values) => {
@@ -316,6 +417,7 @@ export const PostProvider = ({ children }) => {
                     closeOnClick: true,
                     closeButton: "Close"
                 });
+
                 return true
             })
             .catch(error => {
@@ -340,19 +442,20 @@ export const PostProvider = ({ children }) => {
         }
         handleLogin()
         // eslint-disable-next-line
-    }, [isLoggedIn])
+    }, [isLoggedIn, userData])
 
 
 
     const updateUserDataFromAuth = () => {
         setUserGlobal(userData)
-
     }
 
 
     useEffect(updateUserDataFromAuth
         // eslint-disable-next-line
         , [userData]);
+
+
 
 
 

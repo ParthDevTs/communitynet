@@ -94,7 +94,7 @@ export const posts = [
   {
     _id: uuid(),
     content:
-      "Found this Amazing Mustang in Chennai",
+      "My Flight View!!",
     likes: {
       likeCount: 34,
       likedBy: [],
@@ -103,7 +103,7 @@ export const posts = [
     username: "tanvi_123",
     createdAt: formatDate(),
     updatedAt: formatDate(),
-    image: "https://lh3.googleusercontent.com/pw/AJFCJaW_HwgHwKoIlqPHADi7EXjWmRLYAl0HrfmgbBdV6pRvlk2IXnxzreRz120BS3JBPcBt7qwbk8Q1SJjEUZci_CG4dX6VzVSOHTzsrBv7kITQafz4noisxevzozQHhsj99Gz47CA5_Bg78a2qBIT3QkTl=w1292-h969-s-no?authuser=0"
+    image: "https://lh3.googleusercontent.com/pw/AIL4fc__TN7944-1xsuZXFTnWGASWV75l5ilt9zWZ50Jds1ja4RdsQ0bmgmqydx0rxq1TvPAAEKWb_2EH3L8qhl9YFwtggLeRD8eIYVTpd_r7QpEkNiPBOGreEe4f35HGb1g9rbM1bIg9GATGNE0XVJGJMzG=w1292-h969-s-no?authuser=0"
   },
   {
     _id: uuid(),

@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import { usePostContext } from '../context/postContext'
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
-import * as Yup from "yup";
 import EmojiPicker from 'emoji-picker-react';
+import { newPostInitialSchema } from '../schemas/addNewPostSchema';
 
 function AddNewPost() {
 
@@ -32,10 +32,7 @@ function AddNewPost() {
         }
     }
 
-    const newPostInitialSchema = Yup.object({
-        content: Yup.string().required("Caption is Mandatory"),
 
-    });
     const newPostInitialValues = {
         content: ""
     }

@@ -33,6 +33,7 @@ export const AuthProvider = ({ children }) => {
     const [openEditProfile, setOpenEditProfile] = useState(false);
 
 
+
     const stockAvatarImageArray = [
         female_1, male_1, female_2, male_2, male_3
     ]
@@ -56,9 +57,6 @@ export const AuthProvider = ({ children }) => {
             username: "parthk101",
             password: "parth",
         };
-
-
-
         await fetch("/api/auth/login", {
             method: "POST",
             body: JSON.stringify(creds),
@@ -99,9 +97,6 @@ export const AuthProvider = ({ children }) => {
 
         setShowLoading(true)
         let id = toast("Logging In");
-
-
-
 
         await fetch("/api/auth/login", {
             method: "POST",
@@ -208,6 +203,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     const editProfile = async (editedData) => {
+        const id = toast.loading("Editing Profile")
         setShowLoading(true)
         const header = {
             authorization: localStorage.getItem("encodedToken")
@@ -224,9 +220,25 @@ export const AuthProvider = ({ children }) => {
                     setProfileData(data.user)
                     setUserData(data.user)
                     setShowLoading(false)
+                    toast.update(id, {
+                        render: `Update Successfull`,
+                        type: "info",
+                        isLoading: false,
+                        autoClose: true,
+                        closeOnClick: true,
+                        closeButton: "Close"
+                    });
+
                     return true
                 } else {
-                    toast.error(" Some error Occured while updating Profile");
+                    toast.update(id, {
+                        render: `Some Error Occurred`,
+                        type: "Error",
+                        isLoading: false,
+                        autoClose: true,
+                        closeOnClick: true,
+                        closeButton: "Close"
+                    });
                     setShowLoading(false)
                     return false
                 }
@@ -273,7 +285,7 @@ export const AuthProvider = ({ children }) => {
             signUp,
             authToken,
             stockAvatarImageArray,
-            bg__options
+            bg__options,
         }}>
             {children}
         </AuthContext.Provider>
