@@ -44,7 +44,7 @@ export const Post = ({ post }) => {
 
 
     return <div
-        className="post shadow-[0px_4px_8px_-4px_rgba(0,0,0,0.25)] rounded-[10px] bg-white py-4 px-[1.56rem] flex flex-col justiy-center gap-[1rem] sm:w-[20rem] lg:w-[30rem] xl:w-[40rem] 2xl:w-[50rem]">
+        className="post shadow-[0px_4px_8px_-4px_rgba(0,0,0,0.25)] relative rounded-[10px] bg-white py-2 px-[1.56rem] flex flex-col justiy-center gap-[1rem] sm:w-[20rem] lg:w-[30rem] xl:w-[40rem] 2xl:w-[50rem]">
         <header
             className="post__header gap-[1rem] flex h-[3.125rem] items-center relative">
             <img
