@@ -6,6 +6,7 @@ import { usePostContext } from '../context/postContext';
 import Lottie from "lottie-react";
 import { Post } from '../components/post';
 import no_data_found from "../assets/no_data_found.json";
+import MobNavbar from '../components/mobNavBar';
 function Bookmarks() {
 
     const { bookmarkedPosts, setBookmarkedPosts } = usePostContext()
@@ -32,14 +33,14 @@ function Bookmarks() {
 
 
     return (
-        <div className="feed__page h-full bg-[#f1f1f1]">
+        <div className="bookmarks__page h-full bg-[#f1f1f1] relative">
             <Navbar />
-            <div className="feed flex h-full my-4">
+            <div className="bookmarks flex h-full ">
                 <LeftSIdeBar />
-                <div className="posts 2xl:min-w-[52.5rem] lg:w-[42rem] h-[calc(100vh-5.75rem)]  bg-[#f1f1f1] flex-grow overflow-y-auto flex flex-col items-center justify-start ">
+                <div className="posts 2xl:min-w-[52.5rem] lg:w-[42rem] h-[calc(100vh-6.75rem)] sm:h-[calc(100vh-3.75rem)]  bg-[#f1f1f1] flex-grow overflow-y-auto flex flex-col items-center justify-start ">
 
 
-                    <ul className="postsContainer  relative container flex flex-col gap-[15px] items-center justify-start">
+                    <ul className="postsContainer mt-4 px-2 sm:px-0 relative container flex flex-col gap-[20px] items-center justify-start mb-4">
                         {bookmarkedPosts.length > 0 && bookmarkedPosts.map((post) => {
                             return <Post key={post._id} bookmarkMode={true} post={post} />
                         })}
@@ -54,6 +55,7 @@ function Bookmarks() {
                 </div>
                 <Follow />
             </div>
+            <MobNavbar />
         </div >
     )
 }

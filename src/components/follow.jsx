@@ -40,8 +40,8 @@ function Follow() {
     }
     //.filter((user) => findFollowed(user))
     return (
-        <div className="follow bg-[#f1f1f1] h-full w-[18.75rem] grid place-content-center">
-            <div className="follow__list rounded-[10px] bg-white sm:w-[13.5rem]  xl:w-[15.1875rem] flex flex-col items-center justify-start px-2 xl:pl-4 py-[1rem]">
+        <div className="follow hidden bg-[#f1f1f1] h-full w-[18.75rem] sm:grid place-content-center">
+            <div className="follow__list rounded-sm bg-white sm:w-[13.5rem] mt-5  xl:w-[15.1875rem] flex flex-col items-center justify-start px-2 xl:pl-4 py-[1rem]">
                 <p className="capitalize font-semibold">Suggested Users</p>
                 {isLoggedIn &&
                     <ul className="follow__user__container container flex gap-6 flex-col mt-4">

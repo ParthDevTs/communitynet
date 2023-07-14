@@ -3,7 +3,7 @@ import { useAuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
-    const { isLoggedIn, logOut } = useAuthContext();
+    const { isLoggedIn, logOut, userData } = useAuthContext();
     const navigate = useNavigate();
     return (
         <header className="top__header shadow h-[3.75rem] w-full px-[20px] py-[12px] bg-[#FFB8B82E] flex items-center justify-between">
@@ -12,6 +12,12 @@ function Navbar() {
                 <span className="text-[#6C63FF]">Net</span>
             </h1>
             <div className="spacer flex-grow"></div>
+            <img
+                onClick={() => navigate(`/profile/${userData._id}`)}
+                className="h-[2rem] w-[2rem] block sm:hidden object-center object-cover  rounded-full cursor-pointer"
+                src={userData?.imgUrl}
+                alt={userData.firstName} />
+
             {isLoggedIn &&
                 <button
                     onClick={() => logOut()}

@@ -295,7 +295,7 @@ export const PostProvider = ({ children }) => {
             authorization: localStorage.getItem("encodedToken"),
         };
 
-        setShowPostLoading(true)
+
         await fetch(`/api/users/bookmark/${postId}`, {
             method: "POST",
             headers: header,
@@ -305,16 +305,15 @@ export const PostProvider = ({ children }) => {
 
                 setBookmarkedPosts(data.bookmarks)
                 toast.dark("Post added to Bookmarks")
-                setShowPostLoading(false)
+
             })
-            .catch(error => { console.error(error); setShowPostLoading(true) })
+            .catch(error => { console.error(error); })
     }
     const removeBookMark = async (postId) => {
         const header = {
             authorization: localStorage.getItem("encodedToken"),
         };
 
-        setShowPostLoading(true)
         await fetch(`/api/users/remove-bookmark/${postId}`, {
             method: "POST",
             headers: header,
@@ -323,10 +322,9 @@ export const PostProvider = ({ children }) => {
             .then(data => {
 
                 setBookmarkedPosts(data.bookmarks)
-                toast.dark("Post removed from Bookmarks")
-                setShowPostLoading(false)
+
             })
-            .catch(error => { console.error(error); setShowPostLoading(false) })
+            .catch(error => { console.error(error); })
     }
 
     const getAllbookmarks = async () => {

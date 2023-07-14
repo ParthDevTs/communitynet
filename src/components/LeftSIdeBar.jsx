@@ -15,7 +15,7 @@ function LeftSIdeBar() {
         setAddNewPostMode("NEW__POST")
     }
     return (
-        <div className="left__nav bg-[#f1f1f1]   w-[18.75rem] px-[42px] flex flex-col items-center justify-between border-r">
+        <div className="left__nav bg-[#f1f1f1]   w-[18.75rem] px-[42px] hidden  sm:flex flex-col items-center justify-between border-r">
             <div className="feed__nav__links container w-[13.1875rem] h-[15rem] rounded-[10px]  text-black flex flex-col items-start justify-center px-[40px] gap-[20px]">
                 <NavLink style={getActiveStyle} className="navLinks drop-shadow-lg flex gap-2 items-center text-left text-[1rem] font-semibold hover:text-[#9690ff] " to="/">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -50,7 +50,7 @@ function LeftSIdeBar() {
                     onClick={NwwPostHandler} >New Post</button>
             </div>
             <div className="spacer flex flex-grow"></div>
-            <div className="userContainer flex gap-2">
+            <div className="userContainer flex gap-2 sm:mb-4">
                 <img onClick={() => navigate(`/profile/${userData._id}`)} className="h-[3rem] w-[3rem] object-center object-cover  rounded-full cursor-pointer" src={userData?.imgUrl} alt={userData.firstName} />
                 <div onClick={() => navigate(`/profile/${userData._id}`)} className="userDetails text-xs flex flex-col justify-center cursor-pointer ">
                     <p>{`${userData?.firstName} ${userData?.lastName}`}</p>

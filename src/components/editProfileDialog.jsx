@@ -25,7 +25,7 @@ function EditProfileDialog({ profileData }) {
         setNewImgUrl(image)
     }
 
-    const changetoBase64 = (e) => {
+    const changetoBase64 = async (e) => {
 
         var reader = new FileReader();
         reader.readAsDataURL(e.target.files[0])
