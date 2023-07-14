@@ -110,7 +110,7 @@ function Profile() {
                                 <button
                                     onClick={followHandler}
                                     className="edit__button absolute rounded-sm hover:bg-[#4e49bd] top-[5%] text-white w-[6rem] h-[2rem] bg-[#6C63FF] shadow-[0px_10px_20px_-10px_#6C63FF] right-[3%] ">
-                                    {!findUserinFollowList ? "Unfollow" : "Follow"}
+                                    {findUserinFollowList ? "Unfollow" : "Follow"}
                                 </button>
                             }
 
