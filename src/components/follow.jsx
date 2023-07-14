@@ -42,14 +42,17 @@ function Follow() {
     return (
         <div className="follow bg-[#f1f1f1] h-full w-[18.75rem] grid place-content-center">
             <div className="follow__list rounded-[10px] bg-white sm:w-[13.5rem]  xl:w-[15.1875rem] flex flex-col items-center justify-start px-2 xl:pl-4 py-[1rem]">
-                <p className="capitalize ">Users to Follow</p>
+                <p className="capitalize font-semibold">Suggested Users</p>
                 {isLoggedIn &&
-                    <ul className="follow__user__container container flex gap-5 flex-col mt-4">
+                    <ul className="follow__user__container container flex gap-6 flex-col mt-4">
                         {allUsers && allUsers.filter((user) => user.username !== userData.username).filter((user, index) => index <= 8 ? true : false).map(user => {
                             const { _id, username, imgUrl } = user;
                             return <li key={_id} className="flex items-center  gap-4 justify-between w-full ">
                                 <img src={imgUrl} alt="" className="w-[2.5rem] h-[2.5rem] object-center  object-cover  rounded-full" />
-                                <p onClick={() => navigate(`/profile/${_id}`)} className="text-xs text-left font-bold cursor-pointer flex-grow text-[#6C63FF] lowercase">@{username}</p>
+                                <div onClick={() => navigate(`/profile/${_id}`)} className="text-content flex flex-col text-xs text-left cursor-pointer flex-grow ">
+                                    <p>{`${user?.firstName} ${user?.lastName}`}</p>
+                                    <p className="lowercase text-[#6b63ffaf]">@{username}</p>
+                                </div>
                                 <button
                                     className="text-black drop-shadow-md transition-all hover:text-red-400" onClick={() => followHandler(user)}>
                                     {findFollowed(user) ? <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
