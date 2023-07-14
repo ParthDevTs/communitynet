@@ -44,7 +44,7 @@ export const Post = ({ post }) => {
 
 
     return <div
-        className="post shadow-[0px_4px_8px_-4px_rgba(0,0,0,0.25)] relative rounded-[10px] bg-white py-2 px-[1.56rem] flex flex-col justiy-center gap-[1rem] sm:w-[20rem] lg:w-[30rem] xl:w-[40rem] 2xl:w-[50rem]">
+        className="post shadow-[0px_4px_8px_-4px_rgba(0,0,0,0.25)] relative rounded-md bg-white py-2 px-[1.56rem] flex flex-col justiy-center gap-[1rem] sm:w-[20rem] lg:w-[30rem] xl:w-[40rem] 2xl:w-[50rem]">
         <header
             className="post__header gap-[1rem] flex h-[3.125rem] items-center relative">
             <img
@@ -65,7 +65,7 @@ export const Post = ({ post }) => {
             <p className="text-[0.8rem] w-full px-2 rounded-lg ">{content}</p>
             {post.image &&
                 <div onClick={() => navigate(`/post/${_id}`)} className="image__container flex-grow w-full grid place-content-center cursor-pointer" >
-                    <img loading="lazy" className="2xl:max-w-[740px] 2xl:max-h-[540px] object-cover object-center  rounded-lg" src={post.image} alt={username} />
+                    <img loading="lazy" className="2xl:max-w-[740px] aspect-video 2xl:max-h-[540px] object-cover  object-center  rounded-md" src={post.image} alt={username} />
                 </div>}
         </div>
         <div className="action__buttons flex items-center gap-8 justify-evenly w-[47remrem] h-[1.875rem] px-4">

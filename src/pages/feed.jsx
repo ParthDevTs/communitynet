@@ -70,8 +70,7 @@ export const Feed = () => {
                     <p className="drop-shadow-xs font-semibold text-slate-400">Sorting by: <span className={`text-lg transition-all ml-4 ${sortingMethod === "Trending" ? "text-[#FFB8B8]" : "text-[#6b63ff]"}`}>{sortingMethod}</span></p>
                     <div className="seperator w-full sm:w-[20rem] lg:w-[30rem] xl:w-[40rem] 2xl:w-[50rem] h-[1px] bg-black"></div>
                 </div>
-                <ul className="postsContainer mt-[2rem] relative container flex flex-col gap-[15px] items-center justify-start">
-
+                <ul className="postsContainer mt-3 relative container flex flex-col gap-[20px] items-center justify-start">
                     {allPosts.filter((post) => filterByFollowing(post)).sort((first, second) => sortlist(first, second)).map((post) => {
                         return <Post key={post._id} post={post} />
                     })}
@@ -87,7 +86,7 @@ export const Feed = () => {
                         </div>}
                 </ul>
             </div>
-            <Follow />
+            <Follow className="max-xs:hidden" />
         </div>
     </div >
 }
