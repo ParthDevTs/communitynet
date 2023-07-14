@@ -33,6 +33,9 @@ export const PostProvider = ({ children }) => {
         setUserData(userData);
         setFollowList(allUsers.filter((user) => findFollowed(user)).filter((user) => user.username !== userData.username))
     }
+    const initialFindFollowed = () => {
+        setFollowList(allUsers.filter((user) => findFollowed(user)).filter((user) => user.username !== userData.username))
+    }
 
 
     const getSelectedPostData = async (postId) => {
@@ -438,6 +441,7 @@ export const PostProvider = ({ children }) => {
             getallusers();
             getAllbookmarks()
         }
+
         handleLogin()
         // eslint-disable-next-line
     }, [isLoggedIn, userData])
@@ -486,8 +490,8 @@ export const PostProvider = ({ children }) => {
             setPostForEditing,
             addNewPostMode,
             setAddNewPostMode,
-            editPost
-
+            editPost,
+            initialFindFollowed
         }}>
 
         {children}

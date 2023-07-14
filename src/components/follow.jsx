@@ -4,7 +4,7 @@ import { useAuthContext } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom';
 
 function Follow() {
-    const { allUsers, followUser, unFollow, setAllUsers } = usePostContext()
+    const { allUsers, followUser, unFollow, setAllUsers, initialFindFollowed } = usePostContext()
     const { userData, isLoggedIn } = useAuthContext();
     const navigate = useNavigate();
 
@@ -15,6 +15,7 @@ function Follow() {
                 .then(data => { setAllUsers(data.users); })
                 .catch(error => console.error(error))
         }
+        initialFindFollowed()
         getallusers()
         // eslint-disable-next-line
     }, [])
